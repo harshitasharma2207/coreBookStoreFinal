@@ -1,0 +1,135 @@
+﻿@model OnlineBookStoreUser.Models.Customers
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@*<div class="card text-white bg-primary mb-3" style="max-width: 8rem;">
+
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+
+        <div class="card-body">
+
+
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#news">News</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>*@
+
+
+@*<div class="row">
+        <div class="card-group">
+            <div class="card" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" img src="~/images/profile.png"><a href="#home">Profile</a></li>
+                    <li class="list-group-item"><a href="#news">Order</a></li>
+                    <li class="list-group-item"><a href="#contact">Saved Address</a></li>
+                    <li class="list-group-item"><a href="#about">Cart</a></li>
+                    <li class="list-group-item"><a href="#about">Change Password</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>*@
+
+@*<div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a asp-controller="Customers" asp-action="UpdateProfile">Profile</a></li>
+                        <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetAddress">Reset Address</a></li>
+                        <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Order</a></li>
+                        <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Purchased E-Book Repository</a></li>
+                        <li class="list-group-item"><a href="#about">Cart</a></li>
+                        <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetPassword">Reset Password</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card mb-4 shadow-sm">
+
+                <li class="list-group-item">
+                    <p> <center ><h3><b>Basic Information</b></h3></center></p>
+                </li>
+                <div class="card-body">
+                    <li class="list-group-item">
+
+                        <h4 class="card-title">First Name :  @Html.DisplayFor(model => model.FirstName)</h4>
+                        <h4 class="card-title">Last Name :  @Html.DisplayFor(model => model.LastName)</h4>
+                        <h4 class="card-title">User Name :  @Html.DisplayFor(model => model.Email)</h4>
+                        <h4 class="card-title">Email :  @Html.DisplayFor(model => model.Contact)</h4>
+                        <h4 class="card-title">Address :  @Html.DisplayFor(model => model.Address)</h4>
+                        <h4 class="card-title">ZipCode :  @Html.DisplayFor(model => model.ZipCode)</h4>
+                        <h4 class="card-title">Contact :  @Html.DisplayFor(model => model.Contact)</h4>
+                    </li>
+                    <li class="list-group-item">
+                        <p> <center><a asp-controller="Customers" asp-action="Edit"  class="btn btn-sm btn-outline-secondary">Edit </a></center></p>
+                    </li>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Profile" asp-route-id="@Model.CustomerId">Profile</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetAddress">Reset Address</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Order</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Purchased E-Book Repository</a></li>
+                    <li class="list-group-item"><a asp-controller="Cart" asp-action="Index">Cart</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetPassword">Reset Password</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card mb-4 shadow-sm">
+
+            <div class="card" align="justify" style="width: 800px;float:right">
+
+                <div class="card-body">
+
+
+
+                    <li class="list-group-item">
+
+                        <h4 class="card-title">First Name :  @Html.DisplayFor(model => model.FirstName)</h4>
+                        <h4 class="card-title">Last Name :  @Html.DisplayFor(model => model.LastName)</h4>
+                        <h4 class="card-title">User Name :  @Html.DisplayFor(model => model.Email)</h4>
+                        <h4 class="card-title">Email :  @Html.DisplayFor(model => model.Contact)</h4>
+                        <h4 class="card-title">Address :  @Html.DisplayFor(model => model.Address)</h4>
+                        <h4 class="card-title">ZipCode :  @Html.DisplayFor(model => model.ZipCode)</h4>
+                        <h4 class="card-title">Contact :  @Html.DisplayFor(model => model.Contact)</h4>
+                    </li>
+                    <li class="list-group-item">
+                        <p> <center><a asp-controller="Customers" asp-action="Edit" class="btn btn-sm btn-outline-secondary">Edit </a></center></p>
+                        <p> <center><a asp-controller="Home" asp-action="Index" class="btn btn-sm btn-outline-secondary">Home </a></center></p>
+                    </li>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,65 @@
+﻿@model OnlineBookStoreUser.Models.Customers
+@{
+    ViewData["Title"] = "ResetAddress";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Profile" asp-route-id="@Model.CustomerId">Profile</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetAddress">Reset Address</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Order</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Purchased E-Book Repository</a></li>
+                    <li class="list-group-item"><a asp-controller="Cart" asp-action="Index">Cart</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetPassword">Reset Password</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card mb-4 shadow-sm">
+
+            <li class="list-group-item">
+                <p> <center><h3><b>Change Address</b></h3></center></p>
+            </li>
+            <div class="card-body">
+                <li class="list-group-item">
+
+                    <form asp-controller="Customers" asp-action="Edit">
+                        <ul class="list-group list-group-flush">
+                            @Html.HiddenFor(model => model.CustomerId)
+                            @Html.HiddenFor(model => model.FirstName)
+                            @Html.HiddenFor(model => model.LastName)
+                            @Html.HiddenFor(model => model.UserName)
+                            @Html.HiddenFor(model => model.Email)
+                            @Html.HiddenFor(model => model.OldPassword)
+                            @Html.HiddenFor(model => model.NewPassword)
+
+                            @Html.HiddenFor(model => model.Contact)
+                            @Html.HiddenFor(model => model.ShippingAddress)
+
+
+                            <li class="list-group-item">Address : <input type="text" asp-for="Address" class="form-control" /></li>
+                            <li class="list-group-item">ZipCode : <input type="text" asp-for="ZipCode" class="form-control" /></li>
+
+
+                        </ul>
+
+
+                        <input type="submit" value="Reset Password" class="btn btn-primary" />
+                    </form>
+
+
+                </li>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
