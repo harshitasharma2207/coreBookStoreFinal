@@ -5,86 +5,7 @@
     Layout = null;
 
 }
-@*<style type="text/css">
-        body {
-            background-image: url(http://userscontent2.emaze.com/images/30c50827-20df-4d65-ad4f-1ea655b95376/635322512384260482_635211008685078919_notebook-diaries-pen-photo-hd-wallpaper.jpg);
-            background-size: cover;
-            background-attachment: fixed;
-        }
 
-        .content {
-            /*background: hsla(327, 100%, 3%, 0.57);*/
-            width: 90%;
-            padding: 40px;
-            margin: 100px auto;
-
-        }
-
-        p {
-            font-size: 25px;
-            color: darkblue;
-        }
-
-    </style>
-    <p>@ViewBag.Error</p>
-    <center>
-    <form class="form-signin" method="post" align="center" asp-controller="Customers" asp-action="login">
-        <center>
-            <h1 class="h3 mb-4 font-weight-normal" style="color:black;"><b>Please sign in</b></h1>
-
-            <div class="col-4 mb-3">
-                <label asp-for="UserName" class="sr-only">UserName</label>
-                <input type="text" asp-for="UserName" class="form-control" placeholder="Enter User Name">
-            </div>
-
-            <div class="col-4 mb-3">
-                <label asp-for="Password" class="sr-only">Password</label>
-                <input type="password" asp-for="Password" class="form-control" placeholder="Enter Password">
-            </div>
-            <div class="col-4 mb-3">
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                <a asp-controller="Customers" asp-action="Register" class="btn btn-lg btn-primary btn-block">Register</a>
-            </div>
-        </center>
-    </form>
-       </center>*@
-
-
-
-@*<!-- breadcrumbs -->
-    <div class="breadcrumbs">
-        <div class="container">
-            <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-                <li><a asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-                <li class="active">Login Page</li>
-            </ol>
-        </div>
-    </div>
-    <!-- //breadcrumbs -->
-    <!-- login -->
-    <p>@ViewBag.Error</p>
-    <div class="login">
-        <div class="container">
-            <h3 class="animated wow zoomIn" data-wow-delay=".5s">Login Form</h3>
-            <p class="est animated wow zoomIn" data-wow-delay=".5s">
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-            </p>
-            <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-                <form asp-controller="Customers" asp-action="login">
-                    <input type="text" asp-for="UserName" placeholder="Username" required=" ">
-                    <input type="password" asp-for="Password" placeholder="Password" required=" ">
-                    <div class="forgot">
-                        <a href="#">Forgot Password?</a>
-                    </div>
-                    <input type="submit" value="Login">
-                </form>
-            </div>
-            <h4 class="animated wow slideInUp" data-wow-delay=".5s">For New People</h4>
-            <p class="animated wow slideInUp" data-wow-delay=".5s"><a asp-controller="Customers" asp-action="Register">Register Here</a> (Or) go back to <a asp-controller="Home" asp-action="Index">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
-        </div>
-    </div>
-    <!-- //login -->*@
 
 
 @using Microsoft.AspNetCore.Http;
@@ -157,13 +78,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="login">
         <div class="container">
             <h3 class="animated wow zoomIn" data-wow-delay=".5s">Login Form</h3>
-            <p class="est animated wow zoomIn" data-wow-delay=".5s">
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-            </p>
+           
             <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
                 <form asp-controller="Customers" asp-action="login">
                     <input type="text" asp-for="UserName" placeholder="Username" required=" ">
+
                     <input type="password" asp-for="NewPassword" placeholder="Password" required=" ">
                     <div class="forgot">
                         <a href="#">Forgot Password?</a>

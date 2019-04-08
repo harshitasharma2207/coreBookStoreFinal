@@ -81,13 +81,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="cart box_1">
                         <a asp-controller="Cart" asp-action="Index">
                             <h3>
-                                <div class="total">
-                                    <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
-                                </div>
+                                @Context.Session.GetString("CartItem")
                                 <img src="images/bag.png" alt="" />
                             </h3>
                         </a>
-                        <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+
                         <div class="clearfix"> </div>
                     </div>
                 </div>

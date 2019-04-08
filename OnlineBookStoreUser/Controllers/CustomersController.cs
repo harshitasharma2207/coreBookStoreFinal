@@ -26,7 +26,7 @@ namespace OnlineBookStoreUser.Controllers
             context.Customers.Add(cust);
             context.SaveChanges();
 
-            return RedirectToAction("Login","Customers");
+            return RedirectToAction("Login", "Customers");
         }
 
         [Route("login")]
@@ -59,7 +59,7 @@ namespace OnlineBookStoreUser.Controllers
                     if (ViewBag.cart != null)
                     {
                         return RedirectToAction("CheckOut", "Cart", new { @id = custId });
-                       
+
 
                     }
                     else
@@ -101,7 +101,7 @@ namespace OnlineBookStoreUser.Controllers
         {
             int custId = int.Parse(HttpContext.Session.GetString("cid"));
             Customers cust = context.Customers.Where(x => x.CustomerId == custId).SingleOrDefault();
-            
+
             return View(cust);
 
         }

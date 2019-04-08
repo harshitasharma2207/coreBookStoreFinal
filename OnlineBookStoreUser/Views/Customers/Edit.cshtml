@@ -1,61 +1,55 @@
 ﻿@model OnlineBookStoreUser.Models.Customers
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    Layout = "~/Views/Shared/_ProfileUserLayout.cshtml";
 }
 
 
 <!-- register -->
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
+<div class="col-md-3 col-md-3" style="float:left">
+    <div class="list-group">
+        <a class="list-group-item" asp-controller="Customers" asp-action="Profile" asp-route-id="@Model.CustomerId"><i class="glyphicon glyphicon-user" aria-hidden="true"></i>&nbsp; Profile</a>
+        <a class="list-group-item" asp-controller="Customers" asp-action="Repository"><i class="glyphicon glyphicon-cloud" aria-hidden="true"></i>&nbsp; E-Book Repository </a>
+        <a class="list-group-item" asp-controller="Customers" asp-action="ResetAddress"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i>&nbsp; Reset Address</a>
+        <a class="list-group-item" asp-controller="Customers" asp-action="ResetPassword"><i class="glyphicon glyphicon-wrench" aria-hidden="true"></i>&nbsp; Reset Password</a>
+        <a class="list-group-item" asp-controller="Cart" asp-action="Index"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>&nbsp; Cart</a>
+        <a class="list-group-item" href="#"><i class="glyphicon glyphicon-tasks" aria-hidden="true"></i>&nbsp; Order</a>
+    </div>
+</div>
+
+
+<div class="col-md-9 col-md-11">
+    <div class="card mb-4 shadow-sm">
+
+
+        <div class="card" align="justify" style="width: 800px;float:right">
 
             <div class="card-body">
+
+                <li class="list-group-item"><h3><i class="glyphicon glyphicon-edit" aria-hidden="true"></i>&nbsp;&nbsp;Edit Basic Information</h3></li>
+
+            </div>
+            <form asp-controller="Customers" asp-action="Edit">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Profile" asp-route-id="@Model.CustomerId">Profile</a></li>
-                    <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetAddress">Reset Address</a></li>
-                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Order</a></li>
-                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Purchased E-Book Repository</a></li>
-                    <li class="list-group-item"><a asp-controller="Cart" asp-action="Index">Cart</a></li>
-                    <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetPassword">Reset Password</a></li>
+                    @Html.HiddenFor(model => model.CustomerId)
+                    @Html.HiddenFor(model => model.UserName)
+                    @Html.HiddenFor(model => model.OldPassword)
+                    @Html.HiddenFor(model => model.NewPassword)
+                    @Html.HiddenFor(model => model.Address)
+                    @Html.HiddenFor(model => model.ZipCode)
+                    @Html.HiddenFor(model => model.ShippingAddress)
+                    <li class="list-group-item">First Name :  <input type="text" asp-for="FirstName" class="form-control" /></li>
+                    <li class="list-group-item">Last Name : <input type="text" asp-for="LastName" class="form-control" /></li>
+                    <li class="list-group-item">Email : <input type="text" asp-for="Email" class="form-control" /></li>
+                    <li class="list-group-item">Contact : <input type="text" asp-for="Contact" class="form-control" /></li>
+                    <li class="list-group-item">   <center> <input type="submit" value="Edit" class="btn btn-primary" /></li> </center>
                 </ul>
-            </div>
+
+            </form>
+
         </div>
     </div>
-    <div class="col-md-8">
-        <div class="card mb-4 shadow-sm">
-
-
-            <div class="card" align="justify" style="width: 800px;float:right">
-
-                <div class="card-body">
-
-
-
-                </div><form asp-controller="Customers" asp-action="Edit">
-                    <ul class="list-group list-group-flush">
-                        @Html.HiddenFor(model => model.CustomerId)
-                        @Html.HiddenFor(model => model.UserName)
-                        @Html.HiddenFor(model => model.OldPassword)
-                        @Html.HiddenFor(model => model.NewPassword)
-                        @Html.HiddenFor(model => model.Address)
-                        @Html.HiddenFor(model => model.ZipCode)
-                        @Html.HiddenFor(model => model.ShippingAddress)
-                        <li class="list-group-item">First Name :  <input type="text" asp-for="FirstName" class="form-control" /></li>
-                        <li class="list-group-item">Last Name : <input type="text" asp-for="LastName" class="form-control" /></li>
-                        <li class="list-group-item">Email : <input type="text" asp-for="Email" class="form-control" /></li>
-                        <li class="list-group-item">Contact : <input type="text" asp-for="Contact" class="form-control" /></li>
-                    </ul>
-
-
-                    <input type="submit" value="Edit" class="btn btn-primary" />
-                </form>
-
-            </div>
-        </div>
-
-    </div>
-
 </div>
+
 

@@ -82,23 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <ul class="nav navbar-nav">
                                 <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
                                 <!-- Mega Menu -->
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
-                                    <ul class="dropdown-menu columns-1">
-
-                                        @*<div class="col-sm-2">
-                                                <ul class="multi-column-dropdown">
-                                                    <li>
-                                                       /li>
-                                                </ul>
-                                            </div>*@
-
-                                        @*<div class="clearfix">
-
-                                            </div>*@
-
-                                    </ul>
-                                </li>
+                                <li><a asp-controller="BookCategories" asp-action="Index">Book Categories</a></li>
 
                                 <li><a href="short-codes.html">Authors</a></li>
                                 <li><a href="short-codes.html">Publications</a></li>
@@ -147,15 +131,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="content">
         <main role="main" class="container">
             <div class="card" style="width: 18rem;float:left">
-                <ul class="list-group list-group-flush">
-                    <h3>User Profile</h3>
-                    </br>
-                    <a asp-controller="Customers" asp-action="Profile" class="list-group-item"><b>Profile</b></a>
-                    <a asp-controller="Customers" asp-action="Order" class="list-group-item"><b>Order</b></a>
-                    <a asp-controller="Customers" asp-action="ResetAddress" class="list-group-item"><b>Shipping Address</b></a>
-                    <a asp-controller="Cart" asp-action="Index" class="list-group-item"><b>Cart</b></a>
-                    <a asp-controller="Customers" asp-action="ResetPassword" class="list-group-item"><b>Change Password</b></a>
-                </ul>
+              
             </div>
             @RenderBody()
             <hr>

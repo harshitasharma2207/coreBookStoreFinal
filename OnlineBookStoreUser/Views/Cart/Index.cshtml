@@ -3,7 +3,7 @@
 
     @{
         ViewData["Title"] = "Index";
-        Layout = "~/Views/Shared/_UserLayout.cshtml";
+        Layout = "~/Views/Shared/_PartialLayout.cshtml";
     }
 
 
@@ -42,32 +42,32 @@
 
                             <td class="invert-image"><a href="single.html"><img src="@item.Books.BookImage" alt=" " class="img-responsive" /></a></td>
                             @*<td class="invert">
-                                    <div class="quantity">
-                                        <div class="quantity-select">
-                                            <div class="entry value-minus">&nbsp;</div>
-                                            <div class="entry value"><span>1</span></div>
-                                            <div class="entry value-plus active">&nbsp;</div>
-                                        </div>
-                                    </div>
-                                </td>*@
+                            <div class="quantity">
+                                <div class="quantity-select">
+                                    <div class="entry value-minus">&nbsp;</div>
+                                    <div class="entry value"><span>1</span></div>
+                                    <div class="entry value-plus active">&nbsp;</div>
+                                </div>
+                            </div>
+                        </td>*@
                             <td><b><a asp-controller="Cart" asp-action="Plus" asp-route-id="@item.Books.BookId" class=" btn btn-light"> + </a> @item.Quantity <a asp-controller="Cart" asp-action="Minus" asp-route-id=" @item.Books.BookId " class=" btn btn-light">-</a></b></td>
                             <td class="invert">@item.Books.BookName</td>
 
                             <td class="invert">@(item.Books.BookPrice * item.Quantity)</td>
                             @*<td class="invert">
-                                            <div class="rem">
-                                                <div class="close1"> </div>
-                                            </div>
-                                            <script>
-                                    $(document).ready(function (c) {
-                                        $('.close1').on('click', function (c) {
-                                            $('.rem1').fadeOut('slow', function (c) {
-                                                $('.rem1').remove();
-                                            });
-                                        });
+                                    <div class="rem">
+                                        <div class="close1"> </div>
+                                    </div>
+                                    <script>
+                            $(document).ready(function (c) {
+                                $('.close1').on('click', function (c) {
+                                    $('.rem1').fadeOut('slow', function (c) {
+                                        $('.rem1').remove();
                                     });
-                                </script>
-                                        </td>*@
+                                });
+                            });
+                        </script>
+                                </td>*@
                             <td>
                                 <a asp-controller="Cart" asp-action="remove" asp-route-id="@item.Books.BookId" class="btn btn-light">Remove</a>
                             </td>
@@ -78,16 +78,16 @@
 
                     <!--quantity-->
                     @*<script>
-                            $('.value-plus').on('click', function () {
-                                var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
-                                divUpd.text(newVal);
-                            });
+                    $('.value-plus').on('click', function () {
+                        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
+                        divUpd.text(newVal);
+                    });
 
-                            $('.value-minus').on('click', function () {
-                                var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
-                                if (newVal >= 1) divUpd.text(newVal);
-                            });
-                        </script>*@
+                    $('.value-minus').on('click', function () {
+                        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
+                        if (newVal >= 1) divUpd.text(newVal);
+                    });
+                </script>*@
                     <!--quantity-->
                 </table>
             </div>
@@ -100,19 +100,33 @@
                         <li>Total <i>-</i> <span>@ViewBag.total</span></li>
 
                     </ul>
-                    @if (@Context.Session.GetString("id")!=null){
-                    <a asp-controller="Cart" asp-action="CheckOut" asp-route-id="@Context.Session.GetString("id")" class="btn btn-sm btn-outline-secondary">Checkout</a>
-        }
-        else{<a asp-controller="Customers" asp-action="Login" class="btn btn-sm btn-outline-secondary">Checkout</a>}
+
+                    @if (@Context.Session.GetString("id") != null)
+                    {
+                    <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+                        <a asp-controller="Cart" asp-action="Checkout">Checkout &nbsp;<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                    </div>
+                    }
+                    else
+                    {
+
+                        <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+                            <a asp-controller="Cart" asp-action="Checkout">Checkout &nbsp;<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                        </div>
+                    }
+
+
+
+                    <div class="clearfix"> </div>
                 </div>
 
-                <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+                <br />
+                <br/>
+                <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s" style="float:right">
                     <a asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
                 </div>
-                <div class="clearfix"> </div>
             </div>
         </div>
-    </div>
     <!-- //checkout -->
 
 
