@@ -82,10 +82,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <ul class="nav navbar-nav">
                                 <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
                                 <!-- Mega Menu -->
-                                <li><a asp-controller="BookCategories" asp-action="Index">Book Categories</a></li>
 
-                                <li><a href="short-codes.html">Authors</a></li>
-                                <li><a href="short-codes.html">Publications</a></li>
+                                <li><a asp-controller="BookCategory" asp-action="Index">Book Categories</a></li>
+
+
+                                <li><a asp-controller="Author" asp-action="Index">Authors</a></li>
+                                <li><a asp-controller="Publication" asp-action="Index">Publications</a></li>
                                 <li><a href="mail.html">Mail Us</a></li>
                             </ul>
                         </div>
@@ -113,10 +115,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="cart box_1">
                         <a href="checkout.html">
                             <h3>
-                                <div class="total">
-                                    <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
-                                </div>
-                                <img src="images/bag.png" alt="" />
+                                @Context.Session.GetString("CartItem")
+                                <img src="~/images/bag.png" alt="" />
                             </h3>
                         </a>
                         <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>

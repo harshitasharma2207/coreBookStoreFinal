@@ -1,0 +1,38 @@
+﻿@model OnlineBookStoreUser.Models.Books
+
+@{
+    ViewData["Title"] = "OrderDetail";
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+
+<h2>OrderDetail</h2>
+
+
+
+
+<table class="table table-hover">
+    <tr>
+
+        <th>BookId</th>
+        <th>BookName</th>
+
+        <th>Action</th>
+    </tr>
+    @foreach (var Item in ViewBag.bookDetail)
+    {
+        <tr>
+
+            <td>@Item.BookId</td>
+            <td>@Item.BookName</td>
+            <td>
+                <a asp-controller="Book" asp-action="Details" class="btn btn-info"
+                   asp-route-id="@Item.BookId">Book Details</a>
+            </td>
+        </tr>
+    }
+
+</table>
+<a class="btn btn-info" asp-controller="Customers" asp-action="OrderHistory">Back</a>
+<br />
+
+

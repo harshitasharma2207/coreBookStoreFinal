@@ -1,0 +1,32 @@
+﻿@model IEnumerable<OnlineBookStoreUser.Models.Authors>
+
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_BookCategoriesLayout.cshtml";
+    }
+
+
+
+
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 new-collections-grid">
+
+            <div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
+                <div class="new-collections-grid1-image">
+                    <a>
+                        <center>  <img src="@item.AuthorImage" alt="" width="200px" height="300px"></center>
+                        <h4>@item.AuthorName</h4>
+                    </a>
+                    <div class="new-collections-grid1-image-pos">
+                        <a asp-controller="Author" asp-action="Display" asp-route-id="@item.AuthorId">Quick View</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    }

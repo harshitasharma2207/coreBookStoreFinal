@@ -1,8 +1,12 @@
-﻿@model IEnumerable<OnlineBookStoreUser.Models.BookCategories>
+﻿@model IEnumerable<OnlineBookStoreUser.Models.Publications>
 @{
-
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_BookCategoriesLayout.cshtml";
 }
+
+
+
+
 
 @foreach (var item in Model)
 {
@@ -11,11 +15,11 @@
         <div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
             <div class="new-collections-grid1-image">
                 <a>
-                    <center>  <img src="@item.BookCategoryImage" alt="" width="200px" height="300px"></center>
-                    <h4>@item.BookCategoryName</h4>
+                    <center>  <img src="@item.PublicationImage" alt="" width="200px" height="300px"></center>
+                    <h4>@item.PublicationName</h4>
                 </a>
                 <div class="new-collections-grid1-image-pos">
-                    <a asp-controller="BookCategories" asp-action="Books" asp-route-id="@item.BookCategoryId">Quick View</a>
+                    <a asp-controller="BookCategory" asp-action="Display" asp-route-id="@item.PublicationId">Quick View</a>
 
                 </div>
 

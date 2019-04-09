@@ -1,0 +1,33 @@
+﻿@model OnlineBookStoreUser.Models.Orders
+@{
+    ViewData["Title"] = "OrderHistory";
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+
+
+
+<h2>OrderHistory</h2>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>OrderId</th>
+            <th>OrderDate</th>
+            <th>OrderPrice</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var item in ViewBag.ord)
+        {
+
+            <tr>
+                <td>@item.OrderId</td>
+                <td>@item.OrderDate</td>
+                <td>@item.OrderAmount</td>
+                <td>
+                    <a asp-controller="Customers" asp-action="OrderDetail" class="btn btn-info" asp-route-id="@item.OrderId">Books</a>
+                </td>
+            </tr>
+        }
+
+    </thead>
+</table>
+<a asp-controller="Home" asp-action="Index" class="btn btn-info">Back</a>

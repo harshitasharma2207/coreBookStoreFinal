@@ -1,0 +1,30 @@
+﻿@model IEnumerable<OnlineBookStoreUser.Models.Books>
+
+@{
+    ViewData["Title"] = "Display";
+    Layout = "~/Views/Shared/_BookCategoriesLayout.cshtml";
+}
+
+<h2>Display</h2>
+@foreach (var item in Model)
+{
+    <div class="col-md-3 new-collections-grid">
+
+        <div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
+            <div class="new-collections-grid1-image">
+                <a>
+                    <center>  <img src="@item.BookImage" alt="" width="200px" height="300px"></center>
+                    <h4>@item.BookName</h4>
+                </a>
+                <div class="new-collections-grid1-image-pos">
+                    <a asp-controller="Book" asp-action="Details" asp-route-id="@item.BookId">Quick View</a> <br /><br />
+                    <a asp-controller="Cart" asp-action="Buy" asp-route-id="@item.BookId">Add To Cart</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}
