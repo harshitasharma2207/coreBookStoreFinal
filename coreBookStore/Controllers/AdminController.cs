@@ -25,7 +25,7 @@ namespace coreBookStore.Controllers
             [HttpPost]
             public IActionResult Login(string username, string password)
             {
-                if (username != null && password != null && username.Equals("admin") && password.Equals("123456"))
+                if (username != null && password != null && username.Equals("harshita") && password.Equals("123"))
                 {
                     HttpContext.Session.SetString("uname", username);
                     return View("Home");
@@ -37,13 +37,22 @@ namespace coreBookStore.Controllers
                 }
 
             }
+        [Route("Home")]
 
-            [Route("logout")]
+        public IActionResult Home()
+        {
+          
+            return View();
+        }
+
+        [Route("logout")]
             [HttpGet]
             public IActionResult Logout()
             {
                 HttpContext.Session.Remove("uname");
                 return RedirectToAction("Index");
             }
-        }
+
+ 
+    }
     }

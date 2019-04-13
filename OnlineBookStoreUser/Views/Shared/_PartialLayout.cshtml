@@ -102,11 +102,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="logo-nav-right">
                     <div class="search-box">
                         <div id="sb-search" class="sb-search">
-                            <form>
-                                <input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">
-                                <input class="sb-search-submit" type="submit" value="">
-                                <span class="sb-icon-search"> </span>
+                            <form asp-controller="Home" asp-action="Search">
+                                <input class="sb-search-input" name="Search" placeholder="Enter your search term..." type="search" id="search">
+                                @*<input class="sb-search-submit" type="submit" value="">*@
+                                @*<input id="Search1" class="form-control" type="text" value="@Context.Session.GetString("Search")">*@
+                                <button class="sb-icon-search" type="submit"> </button>
                             </form>
+
+                            @*<div class="form-group">
+                                <br />
+                                <button class="btn btn-success" asp-controller="Home" asp-action="Search">Check Availability</button>
+                            </div>*@
+
+
+
+
                         </div>
                     </div>
                     <!-- search-scripts -->

@@ -1,0 +1,46 @@
+﻿@model coreBookStore.Models.Customer
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<br />
+<br />
+<h2>Details</h2>
+<br />
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th><label for="CustomerId">Customer's Id</label></th>
+            <th><label for="CustomerName">First Name</label></th>
+            <th><label for="CustomerName">Last Name</label></th>
+            <th><label for="UserName">User Name</label></th>
+            <th><label for="Email">Email</label></th>
+            <th><label for="Address">Address</label></th>
+            <th><label for="ZipCode">ZipCode</label></th>
+            <th><label for="Contact">Contact</label></th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td> @Html.DisplayFor(model => model.CustomerId)</td>
+            <td> @Html.DisplayFor(model => model.FirstName)</td>
+            <td> @Html.DisplayFor(model => model.LastName)</td>
+            <td> @Html.DisplayFor(model => model.UserName)</td>
+            <td> @Html.DisplayFor(model => model.Email)</td>
+            <td> @Html.DisplayFor(model => model.Address)</td>
+            <td> @Html.DisplayFor(model => model.ZipCode)</td>
+            <td> @Html.DisplayFor(model => model.Contact)</td>
+
+        </tr>
+
+    </tbody>
+</table>
+<br />
+<br />
+<br />
+<a asp-action="Index" asp-controller="Customers" class="btn btn-primary">Back To List</a>

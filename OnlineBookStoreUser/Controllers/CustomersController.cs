@@ -32,8 +32,18 @@ namespace OnlineBookStoreUser.Controllers
         [Route("login")]
         public IActionResult Login()
         {
-            return View();
-        }
+            var custId = HttpContext.Session.GetString("cId");
+            if (custId != null)
+            {
+                int cId = int.Parse(custId);
+                return RedirectToAction("CheckOut", "Cart", new { @id = cId });
+            }
+            else
+            {
+                return View("Login");
+
+            }
+            }
         [Route("login")]
         [HttpPost]
         public ActionResult Login(int id, Customers cust)
@@ -57,13 +67,9 @@ namespace OnlineBookStoreUser.Controllers
                     HttpContext.Session.SetString("id", user.CustomerId.ToString());
 
                     HttpContext.Session.SetString("cid", custId.ToString());
-                    if (ViewBag.cart != null)
+                    
                         return RedirectToAction("CheckOut", "Cart", new { @id = custId });
-
-                    else
-                        return RedirectToAction("Profile", "Customers", new { @id = custId });
-
-
+                    
 
                 }
                 else
@@ -202,6 +208,8 @@ namespace OnlineBookStoreUser.Controllers
             return View();
 
         }
+
+       
 
     }
 

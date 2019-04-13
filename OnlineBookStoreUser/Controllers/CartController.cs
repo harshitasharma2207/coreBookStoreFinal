@@ -134,11 +134,20 @@ namespace OnlineBookStoreUser.Controllers
             var customers = context.Customers.Where(x => x.CustomerId == id).SingleOrDefault();
 
             var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-            ViewBag.cart = cart;
-            ViewBag.total = cart.Sum(item => item.Books.BookPrice * item.Quantity);
-            TempData["total"] = ViewBag.total;
-            TempData["cid"] = id;
-            return View(customers);
+            if (cart == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            else
+            {
+
+                ViewBag.cart = cart;
+                ViewBag.total = cart.Sum(item => item.Books.BookPrice * item.Quantity);
+                TempData["total"] = ViewBag.total;
+                TempData["cid"] = id;
+                return View(customers);
+            }
         }
         [Route("checkout/{id}")]
         [HttpPost]
@@ -199,6 +208,7 @@ namespace OnlineBookStoreUser.Controllers
             ViewBag.total = cart.Sum(item => item.Books.BookPrice * item.Quantity);
             TempData["total"] = ViewBag.total;
             HttpContext.Session.Remove("cart");
+            HttpContext.Session.Remove("CartItem");
             return View();
 
 

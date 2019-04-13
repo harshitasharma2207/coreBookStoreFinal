@@ -1,0 +1,39 @@
+﻿@model coreBookStore.Models.Order
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<h2>Details</h2>
+<br />
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th><label for="OrderId">Customer's Id</label></th>
+            <th><label for="OrderDate">Order Date</label></th>
+            <th><label for="OrderAmount">Order Amount</label></th>
+            <th><label for="CustomerId">Customer Id</label></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td> @Html.DisplayFor(model => model.OrderId)</td>
+            <td> @Html.DisplayFor(model => model.OrderDate)</td>
+            <td> @Html.DisplayFor(model => model.OrderAmount)</td>
+            <td> @Html.DisplayFor(model => model.CustomerId)</td>
+        
+
+        </tr>
+
+    </tbody>
+</table>
+<br />
+<br />
+<br />
+<a asp-action="Index" asp-controller="Orders" class="btn btn-primary">Back To List</a>
