@@ -17,7 +17,7 @@ namespace coreBookStore.Models
         public string BookDescription { get; set; }
         public float BookPrice { get; set; }
         public string BookImage { get; set; }
-
+        public string BookPdf { get; set; }
         public int AuthorId { get; set; }
         public Author Author { get; set; }
 
@@ -28,7 +28,7 @@ namespace coreBookStore.Models
         public Publication Publication { get; set; }
 
 
-
+        public List<Review> Review { get; set; }
         public List<OrderBook> OrderBook { get; set; }
 
     }

@@ -101,30 +101,30 @@
 
                     </ul>
 
-                    @if (@Context.Session.GetString("id") != null)
-                    {
-                        <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
-                            <a asp-controller="Cart" asp-action="CheckOut" asp-route-id="@Context.Session.GetString("id")" class="btn btn-sm btn-outline-secondary">Checkout</a>
-                        </div>
-                    }
-                    else
-                    {
+                    <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s" style="float:right">
+                        <a asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
+                    </div>
 
-                        <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
-                            <a asp-controller="Customers" asp-action="Login">Checkout &nbsp;<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
-                        </div>
-                    }
-
-  
 
                     <div class="clearfix"> </div>
                 </div>
 
+                @if (@Context.Session.GetString("id") != null)
+                {
+                    <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+                        <a asp-controller="Cart" asp-action="CheckOut" asp-route-id="@Context.Session.GetString("id")" class="btn btn-sm btn-outline-secondary">Checkout</a>
+                    </div>
+                }
+                else
+                {
+
+                    <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+                        <a asp-controller="Customers" asp-action="Login">Checkout &nbsp;<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                    </div>
+                }
                 <br />
-                <br/>
-                <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s" style="float:right">
-                    <a asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
-                </div>
+                <br />
+
             </div>
         </div>
     <!-- //checkout -->

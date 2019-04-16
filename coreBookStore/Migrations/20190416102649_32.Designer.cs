@@ -10,8 +10,8 @@ using coreBookStore.Models;
 namespace coreBookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20190412074100_61046")]
-    partial class _61046
+    [Migration("20190416102649_32")]
+    partial class _32
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,21 @@ namespace coreBookStore.Migrations
                 .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("coreBookStore.Models.Admin", b =>
+                {
+                    b.Property<int>("AdminId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdminPassword");
+
+                    b.Property<string>("AdminUserName");
+
+                    b.HasKey("AdminId");
+
+                    b.ToTable("Admins");
+                });
 
             modelBuilder.Entity("coreBookStore.Models.Author", b =>
                 {
@@ -53,6 +68,8 @@ namespace coreBookStore.Migrations
                     b.Property<string>("BookImage");
 
                     b.Property<string>("BookName");
+
+                    b.Property<string>("BookPdf");
 
                     b.Property<float>("BookPrice");
 
@@ -98,11 +115,7 @@ namespace coreBookStore.Migrations
 
                     b.Property<bool>("BillingAddress");
 
-                    b.Property<string>("City");
-
                     b.Property<long>("Contact");
-
-                    b.Property<string>("Country");
 
                     b.Property<string>("Email");
 
@@ -167,6 +180,36 @@ namespace coreBookStore.Migrations
                     b.ToTable("OrderBooks");
                 });
 
+            modelBuilder.Entity("coreBookStore.Models.Payment", b =>
+                {
+                    b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("CardLastDigit");
+
+                    b.Property<int?>("CustomerId");
+
+                    b.Property<DateTime>("DateOfPayment");
+
+                    b.Property<int>("OrderId");
+
+                    b.Property<float>("PaymentAmount");
+
+                    b.Property<string>("PaymentDescription");
+
+                    b.Property<string>("StripePaymentId");
+
+                    b.HasKey("PaymentId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
+
+                    b.ToTable("Payment");
+                });
+
             modelBuilder.Entity("coreBookStore.Models.Publication", b =>
                 {
                     b.Property<int>("PublicationId")
@@ -182,6 +225,29 @@ namespace coreBookStore.Migrations
                     b.HasKey("PublicationId");
 
                     b.ToTable("Publications");
+                });
+
+            modelBuilder.Entity("coreBookStore.Models.Review", b =>
+                {
+                    b.Property<int>("ReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BookId");
+
+                    b.Property<int>("CustomerId");
+
+                    b.Property<string>("ReviewMessage");
+
+                    b.Property<string>("ReviewSubject");
+
+                    b.HasKey("ReviewId");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Review");
                 });
 
             modelBuilder.Entity("coreBookStore.Models.Book", b =>
@@ -220,6 +286,31 @@ namespace coreBookStore.Migrations
                     b.HasOne("coreBookStore.Models.Order", "Order")
                         .WithMany("OrderBook")
                         .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("coreBookStore.Models.Payment", b =>
+                {
+                    b.HasOne("coreBookStore.Models.Customer", "Customer")
+                        .WithMany("Payment")
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("coreBookStore.Models.Order", "Order")
+                        .WithOne("Payment")
+                        .HasForeignKey("coreBookStore.Models.Payment", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("coreBookStore.Models.Review", b =>
+                {
+                    b.HasOne("coreBookStore.Models.Book", "Book")
+                        .WithMany("Review")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("coreBookStore.Models.Customer", "Customer")
+                        .WithMany("Review")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

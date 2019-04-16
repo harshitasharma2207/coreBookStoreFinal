@@ -29,6 +29,9 @@ namespace coreBookStore.Models
         public bool SaveInformation { get; set; }
         public bool PaymentType { get; set; }
         public List<Order> Orders { get; set; }
-      
+        public List<Payment> Payment { get; set; }
+
+        public List<Review> Review { get; set; }
+
     }
 }

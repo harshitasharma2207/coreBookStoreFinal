@@ -21,7 +21,9 @@ namespace OnlineBookStoreUser.Models
         public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<OrderBooks> OrderBooks { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<Payment> Payment { get; set; }
         public virtual DbSet<Publications> Publications { get; set; }
+        public virtual DbSet<Review> Review { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -104,9 +106,40 @@ namespace OnlineBookStoreUser.Models
                     .HasForeignKey(d => d.CustomerId);
             });
 
+            modelBuilder.Entity<Payment>(entity =>
+            {
+                entity.HasIndex(e => e.CustomerId);
+
+                entity.HasIndex(e => e.OrderId)
+                    .IsUnique();
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Payment)
+                    .HasForeignKey(d => d.CustomerId);
+
+                entity.HasOne(d => d.Order)
+                    .WithOne(p => p.Payment)
+                    .HasForeignKey<Payment>(d => d.OrderId);
+            });
+
             modelBuilder.Entity<Publications>(entity =>
             {
                 entity.HasKey(e => e.PublicationId);
+            });
+
+            modelBuilder.Entity<Review>(entity =>
+            {
+                entity.HasIndex(e => e.BookId);
+
+                entity.HasIndex(e => e.CustomerId);
+
+                entity.HasOne(d => d.Book)
+                    .WithMany(p => p.Review)
+                    .HasForeignKey(d => d.BookId);
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Review)
+                    .HasForeignKey(d => d.CustomerId);
             });
         }
     }

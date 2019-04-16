@@ -50,9 +50,7 @@ namespace coreBookStore.Migrations
                     Email = table.Column<string>(nullable: true),
                     OldPassword = table.Column<string>(nullable: true),
                     NewPassword = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
                     ZipCode = table.Column<long>(nullable: false),
                     Contact = table.Column<long>(nullable: false),
                     BillingAddress = table.Column<bool>(nullable: false),
@@ -112,6 +110,7 @@ namespace coreBookStore.Migrations
                     BookDescription = table.Column<string>(nullable: true),
                     BookPrice = table.Column<float>(nullable: false),
                     BookImage = table.Column<string>(nullable: true),
+                    BookPdf = table.Column<string>(nullable: true),
                     AuthorId = table.Column<int>(nullable: false),
                     BookCategoryId = table.Column<int>(nullable: false),
                     PublicationId = table.Column<int>(nullable: false)
@@ -136,6 +135,37 @@ namespace coreBookStore.Migrations
                         column: x => x.PublicationId,
                         principalTable: "Publications",
                         principalColumn: "PublicationId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payment",
+                columns: table => new
+                {
+                    PaymentId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    StripePaymentId = table.Column<string>(nullable: true),
+                    PaymentAmount = table.Column<float>(nullable: false),
+                    DateOfPayment = table.Column<DateTime>(nullable: false),
+                    PaymentDescription = table.Column<string>(nullable: true),
+                    CardLastDigit = table.Column<long>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false),
+                    CustomerId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payment", x => x.PaymentId);
+                    table.ForeignKey(
+                        name: "FK_Payment_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Payment_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "OrderId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -165,6 +195,34 @@ namespace coreBookStore.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Review",
+                columns: table => new
+                {
+                    ReviewId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ReviewSubject = table.Column<string>(nullable: true),
+                    ReviewMessage = table.Column<string>(nullable: true),
+                    CustomerId = table.Column<int>(nullable: false),
+                    BookId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Review", x => x.ReviewId);
+                    table.ForeignKey(
+                        name: "FK_Review_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Review_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Books_AuthorId",
                 table: "Books",
@@ -191,6 +249,27 @@ namespace coreBookStore.Migrations
                 name: "IX_Orders_CustomerId",
                 table: "Orders",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payment_CustomerId",
+                table: "Payment",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payment_OrderId",
+                table: "Payment",
+                column: "OrderId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Review_BookId",
+                table: "Review",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Review_CustomerId",
+                table: "Review",
+                column: "CustomerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -199,10 +278,19 @@ namespace coreBookStore.Migrations
                 name: "OrderBooks");
 
             migrationBuilder.DropTable(
-                name: "Books");
+                name: "Payment");
+
+            migrationBuilder.DropTable(
+                name: "Review");
 
             migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Books");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Authors");
@@ -212,9 +300,6 @@ namespace coreBookStore.Migrations
 
             migrationBuilder.DropTable(
                 name: "Publications");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
         }
     }
 }

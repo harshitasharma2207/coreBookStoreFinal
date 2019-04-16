@@ -16,6 +16,7 @@ namespace OnlineBookStoreUser.Models
         public int CustomerId { get; set; }
 
         public Customers Customer { get; set; }
+        public Payment Payment { get; set; }
         public ICollection<OrderBooks> OrderBooks { get; set; }
     }
 }

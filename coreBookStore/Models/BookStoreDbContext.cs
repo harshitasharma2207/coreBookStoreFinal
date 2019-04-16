@@ -10,6 +10,7 @@ namespace coreBookStore.Models
     {
         private object b;
 
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Publication> Publications { get; set; }
         public DbSet<BookCategory> BookCategories { get; set; }
@@ -36,6 +37,17 @@ namespace coreBookStore.Models
                     build.HasKey(b => new { b.OrderId, b.BookId });
                 }
                 );
+
+            modelBuilder.Entity<Payment>()
+         .HasOne(p => p.Order)
+         .WithOne(b => b.Payment)
+         .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Review>()
+        .HasOne(b => b.Book)
+        .WithMany(r => r.Review)
+        .OnDelete(DeleteBehavior.Cascade);
 
 
         }

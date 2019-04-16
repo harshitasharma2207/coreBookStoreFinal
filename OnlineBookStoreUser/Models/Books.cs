@@ -8,6 +8,7 @@ namespace OnlineBookStoreUser.Models
         public Books()
         {
             OrderBooks = new HashSet<OrderBooks>();
+            Review = new HashSet<Review>();
         }
 
         public int BookId { get; set; }
@@ -16,6 +17,7 @@ namespace OnlineBookStoreUser.Models
         public string BookDescription { get; set; }
         public float BookPrice { get; set; }
         public string BookImage { get; set; }
+        public string BookPdf { get; set; }
         public int AuthorId { get; set; }
         public int BookCategoryId { get; set; }
         public int PublicationId { get; set; }
@@ -24,5 +26,6 @@ namespace OnlineBookStoreUser.Models
         public BookCategories BookCategory { get; set; }
         public Publications Publication { get; set; }
         public ICollection<OrderBooks> OrderBooks { get; set; }
+        public ICollection<Review> Review { get; set; }
     }
 }

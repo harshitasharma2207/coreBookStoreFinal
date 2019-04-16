@@ -184,7 +184,7 @@ namespace OnlineBookStoreUser.Controllers
             orderBooks.ForEach(n => context.OrderBooks.Add(n));
             context.SaveChanges();
             TempData["cust"] = id;
-            return RedirectToAction("Invoice", "Cart");
+            return RedirectToAction("Index", "Payment");
         }
 
         //return View(customers);
