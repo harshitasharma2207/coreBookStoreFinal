@@ -53,13 +53,16 @@ namespace OnlineBookStoreUser.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-         
-            //HttpContext.Session.SetString("Search", Search.ToString());
-              
-                var Book = context.Books.Where(x => x.BookName == Search || x.BookCategory.BookCategoryName == Search || x.Author.AuthorName == Search || x.Publication.PublicationName == Search || Search == null).ToList();
-                return View(Book);
-            }
-        
 
+            //HttpContext.Session.SetString("Search", Search.ToString());
+
+            var Book = context.Books.Where(x => x.BookName == Search || x.BookCategory.BookCategoryName == Search || x.Author.AuthorName == Search || x.Publication.PublicationName == Search || Search == null).ToList();
+            return View(Book);
         }
+        public IActionResult MyInfo()
+        {
+            return View();
+        }
+
     }
+}

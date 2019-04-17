@@ -1,0 +1,39 @@
+﻿@model IEnumerable<coreBookStore.Models.Payment>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2><center><b><u>List Of Payments</u></b></center></h2>
+<br />
+<br />
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th><label for="PaymentId">Payment Id</label></th>
+
+            <th><label for="DateOfPayment">Date Of Payment</label></th>
+           
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @Html.DisplayFor(modelItem => item.PaymentId)</td>
+
+                <td> @Html.DisplayFor(modelItem => item.DateOfPayment)</td>
+
+
+                <td>
+
+
+                    <a asp-controller="Payment" asp-action="Details" asp-route-id="@item.OrderId" class="btn btn-primary">Details</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

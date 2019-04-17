@@ -12,20 +12,26 @@ namespace OnlineBookStoreUser.Controllers
     {
         Book_Store_DbContext context = new Book_Store_DbContext();
 
-        public IActionResult BookCategoryIndex()
-        {
-            ViewBag.bookcategoryAuthor = context.Books.Include(c => c.Author).ToList();
-            ViewBag.bookcategoryPublication = context.Books.Include(p => p.Publication).ToList();
-            ViewBag.bookcategoryBook = context.Books.Include(b => b.BookCategory).ToList();
-            return View();
-        }
 
-        [Route("details")]
         public ActionResult Details(int id)
         {
             Books bk = context.Books.Where(x => x.BookId == id).SingleOrDefault();
             context.SaveChanges();
             return View(bk);
+        }
+
+        [HttpGet]
+        public ViewResult Review()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Review(Review re)
+        {
+
+            context.Review.Add(re);
+            context.SaveChanges();
+            return RedirectToAction("Details","Book");
         }
     }
 }

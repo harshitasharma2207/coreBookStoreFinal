@@ -1,5 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @model OnlineBookStoreUser.Models.Customers
+@using Microsoft.Extensions.Options
+
+@inject IOptions<StripeSettings> Stripe
 @{
     Layout = "~/Views/Shared/_CheckoutLayout.cshtml";
 }
@@ -87,27 +90,36 @@
                                 </table>
                             </div>
                             @*<div class="payment-method">
-                                <div class="pm-item">
-                                    <input type="radio" name="pm" id="one">
-                                    <label for="one">Paypal</label>
-                                </div>
-                                <div class="pm-item">
-                                    <input type="radio" name="pm" id="two">
-                                    <label for="two">Cash on delievery</label>
-                                </div>
-                                <div class="pm-item">
-                                    <input type="radio" name="pm" id="three">
-                                    <label for="three">Credit card</label>
-                                </div>
-                                <div class="pm-item">
-                                    <input type="radio" name="pm" id="four" checked>
-                                    <label for="four">Direct bank transfer</label>
-                                </div>
-                            </div>*@
+                                    <div class="pm-item">
+                                        <input type="radio" name="pm" id="one">
+                                        <label for="one">Paypal</label>
+                                    </div>
+                                    <div class="pm-item">
+                                        <input type="radio" name="pm" id="two">
+                                        <label for="two">Cash on delievery</label>
+                                    </div>
+                                    <div class="pm-item">
+                                        <input type="radio" name="pm" id="three">
+                                        <label for="three">Credit card</label>
+                                    </div>
+                                    <div class="pm-item">
+                                        <input type="radio" name="pm" id="four" checked>
+                                        <label for="four">Direct bank transfer</label>
+                                    </div>
+                                </div>*@
                         </div>
 
-
-                        <button type="submit" class="site-btn btn-full">Place Order</button>
+                        <center>
+                            @*<button type="submit" class="site-btn btn-full">Proceed To Pay</button>*@
+                            <script src="//checkout.stripe.com/v2/checkout.js"
+                                    class="stripe-button"
+                                    data-key="@Stripe.Value.PublishableKey"
+                                    data-locale="auto"
+                                    data-description="Payment"
+                                    data-amount="@ViewBag.total">
+                            </script>
+                        </center>
+                        <a asp-controller="Cart" asp-action="Index" class="btn btn-default"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Back To Cart</a>
                     </div>
                 </div>
             </div>

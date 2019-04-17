@@ -6,14 +6,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineBookStoreUser.Helper;
 using OnlineBookStoreUser.Models;
+using Stripe;
 
 namespace OnlineBookStoreUser.Controllers
 {
     [Route("cart")]
-    //index
     public class CartController : Controller
     {
+      
+
         Book_Store_DbContext context = new Book_Store_DbContext();
+
+
         [Route("index")]
         public IActionResult Index()
         {
@@ -116,13 +120,13 @@ namespace OnlineBookStoreUser.Controllers
             }
             return -1;
         }
-        [Route("details")]
-        public ActionResult Details(int id)
-        {
-            Books bk = context.Books.Where(x => x.BookId == id).SingleOrDefault();
-            context.SaveChanges();
-            return View(bk);
-        }
+        //[Route("details")]
+        //public ActionResult Details(int id)
+        //{
+        //    Books bk = context.Books.Where(x => x.BookId == id).SingleOrDefault();
+        //    context.SaveChanges();
+        //    return View(bk);
+        //}
 
         [Route("checkout/{id}")]
         [HttpGet]
@@ -151,7 +155,7 @@ namespace OnlineBookStoreUser.Controllers
         }
         [Route("checkout/{id}")]
         [HttpPost]
-        public IActionResult CheckOut(int id, Customers c)
+        public IActionResult CheckOut(int id, Customers c, string stripeEmail, string stripeToken)
         {
             // var cid = (TempData["cid"]).ToString();
             //context.Customers.Add(c);
@@ -184,8 +188,62 @@ namespace OnlineBookStoreUser.Controllers
             orderBooks.ForEach(n => context.OrderBooks.Add(n));
             context.SaveChanges();
             TempData["cust"] = id;
-            return RedirectToAction("Index", "Payment");
+            //return RedirectToAction("Index", "Payment");
+
+
+            var customers = new CustomerService();
+            var charges = new ChargeService();
+            var Amount = TempData["total"];
+            var order = ord.OrderId;
+            var custmr = TempData["cust"];
+            var customer = customers.Create(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                SourceToken = stripeToken
+            });
+
+            var charge = charges.Create(new ChargeCreateOptions
+            {
+                Amount = 500,
+                Description = "Total Charge",
+                Currency = "usd",
+                CustomerId = customer.Id
+            });
+
+            Payment payment = new Payment();
+            {
+                payment.StripePaymentId = charge.PaymentMethodId;
+                payment.PaymentAmount = Convert.ToInt32(Amount);
+                payment.DateOfPayment = System.DateTime.Now;
+                payment.PaymentDescription = "Payment Initiated";
+                payment.CardLastDigit = Convert.ToInt32(charge.PaymentMethodDetails.Card.Last4);
+                payment.OrderId = Convert.ToInt32(order);
+                payment.CustomerId = Convert.ToInt32(custmr);
+            }
+
+            //_context.Add<Payments>(payment);
+            context.Payment.Add(payment);
+            context.SaveChanges();
+
+            return RedirectToAction("Invoice", "Cart");
+
+
+
+
         }
+        public IActionResult PaymentIndex()
+        {
+            var checkout = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+            ViewBag.checkout = checkout;
+            ViewBag.total = checkout.Sum(item => item.Books.BookPrice * item.Quantity);
+            return View();
+        }
+
+        public IActionResult Error()
+        {
+            return View();
+        }
+
 
         //return View(customers);
 
@@ -255,6 +313,16 @@ namespace OnlineBookStoreUser.Controllers
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             return RedirectToAction("Index");
         }
+
+        [Route("search")]
+        [HttpGet]
+        public IActionResult Search(string search)
+        {
+            ViewBag.Book = context.Books.Where(x => x.BookName == search || x.Author.AuthorName == search || x.BookCategory.BookCategoryName == search || x.Publication.PublicationName == search || search == null).ToList();
+            return View(context.Books.Where(x => x.BookName == search || x.Author.AuthorName == search || x.BookCategory.BookCategoryName == search || x.Publication.PublicationName == search || search == null).ToList());
+        }
+
+
 
     }
 }

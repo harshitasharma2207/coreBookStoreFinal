@@ -12,7 +12,12 @@ namespace OnlineBookStoreUser.Controllers
     {
         Book_Store_DbContext context = new Book_Store_DbContext();
 
-        
+        private readonly Book_Store_DbContext _context;
+
+        public PaymentController(Book_Store_DbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             return View();
@@ -27,13 +32,14 @@ namespace OnlineBookStoreUser.Controllers
         {
             var customers = new CustomerService();
             var charges = new ChargeService();
-
+            var Amount = TempData["total"];
+            var order = TempData["orderId"];
+            var custmr = TempData["cust"];
             var customer = customers.Create(new CustomerCreateOptions
             {
                 Email = stripeEmail,
                 SourceToken = stripeToken
             });
-
             var charge = charges.Create(new ChargeCreateOptions
             {
                 Amount = 500,
@@ -42,23 +48,20 @@ namespace OnlineBookStoreUser.Controllers
                 CustomerId = customer.Id
             });
 
-            Payment payment = new Payment()
+            Payment payment = new Payment();
             {
-                StripePaymentId = charge.PaymentMethodId,
-                PaymentAmount = 500,
-
-                DateOfPayment = System.DateTime.Now,
-                PaymentDescription = "Payment Initiated..",
-                CardLastDigit = Convert.ToInt32(charge.PaymentMethodDetails.Card.Last4),
-
-                CustomerId = 1,
-                OrderId = 2
+                payment.StripePaymentId = charge.PaymentMethodId;
+                payment.PaymentAmount = Convert.ToInt32(Amount);
+                payment.DateOfPayment = System.DateTime.Now;
+                payment.CardLastDigit = Convert.ToInt32(charge.PaymentMethodDetails.Card.Last4);
+                payment.OrderId = Convert.ToInt32(order);
+                payment.CustomerId = Convert.ToInt32(custmr);
             };
 
-            context.Add<Payment>(payment);
+            _context.Add<Payment>(payment);
 
-            context.Payment.Add(payment);
-            context.SaveChanges();
+            _context.Payment.Add(payment);
+            _context.SaveChanges();
 
             return RedirectToAction("Invoice", "Cart");
         }

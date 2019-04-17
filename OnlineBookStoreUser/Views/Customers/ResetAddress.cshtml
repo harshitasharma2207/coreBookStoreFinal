@@ -12,10 +12,9 @@
         <a class="list-group-item" asp-controller="Customers" asp-action="ResetAddress"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i>&nbsp; Reset Address</a>
         <a class="list-group-item" asp-controller="Customers" asp-action="ResetPassword"><i class="glyphicon glyphicon-wrench" aria-hidden="true"></i>&nbsp; Reset Password</a>
         <a class="list-group-item" asp-controller="Cart" asp-action="Index"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>&nbsp; Cart</a>
-        <a class="list-group-item" asp-controller="Customers" asp-action="OrderHistory"><i class="glyphicon glyphicon-tasks" aria-hidden="true"></i>&nbsp; Order</a>
+        <a class="list-group-item" asp-controller="Customers" asp-action="OrderHistory" asp-route-id="@Model.CustomerId"><i class="glyphicon glyphicon-tasks" aria-hidden="true"></i>&nbsp; Order</a>
     </div>
 </div>
-
 
 
 
@@ -32,7 +31,8 @@
             <li class="list-group-item"><p><h3><i class="glyphicon glyphicon-edit" aria-hidden="true"></i>&nbsp;&nbsp;Reset Address</h3></p></li>
 
 
-            <form asp-controller="Customers" asp-action="Edit">
+            <form asp-controller="Customers" asp-action="ResetAddress" novalidate>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <ul class="list-group list-group-flush">
                     @Html.HiddenFor(model => model.CustomerId)
                     @Html.HiddenFor(model => model.FirstName)
@@ -47,7 +47,9 @@
 
 
                     <li class="list-group-item">Address : <input type="text" asp-for="Address" class="form-control" /></li>
+                    <span asp-validation-for="Address" class="text-danger"></span>
                     <li class="list-group-item">ZipCode : <input type="text" asp-for="ZipCode" class="form-control" /></li>
+                    <span asp-validation-for="ZipCode" class="text-danger"></span>
                     <li class="list-group-item"><center>  <input type="submit" value="Reset Address" class="btn btn-primary" /></center></li>
 
                 </ul>

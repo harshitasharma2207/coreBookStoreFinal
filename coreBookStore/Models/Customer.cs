@@ -25,11 +25,9 @@ namespace coreBookStore.Models
         public long ZipCode { get; set; }
         public long Contact { get; set; }
         public bool BillingAddress { get; set; }
-        public bool ShippingAddress { get; set; }
-        public bool SaveInformation { get; set; }
-        public bool PaymentType { get; set; }
+        public string ShippingAddress { get; set; }
         public List<Order> Orders { get; set; }
-        public List<Payment> Payment { get; set; }
+        //public List<Payment> Payment { get; set; }
 
         public List<Review> Review { get; set; }
 

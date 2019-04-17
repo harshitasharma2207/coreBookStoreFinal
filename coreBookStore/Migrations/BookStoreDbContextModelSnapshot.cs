@@ -125,11 +125,7 @@ namespace coreBookStore.Migrations
 
                     b.Property<string>("OldPassword");
 
-                    b.Property<bool>("PaymentType");
-
-                    b.Property<bool>("SaveInformation");
-
-                    b.Property<bool>("ShippingAddress");
+                    b.Property<string>("ShippingAddress");
 
                     b.Property<string>("UserName");
 
@@ -290,7 +286,7 @@ namespace coreBookStore.Migrations
             modelBuilder.Entity("coreBookStore.Models.Payment", b =>
                 {
                     b.HasOne("coreBookStore.Models.Customer", "Customer")
-                        .WithMany("Payment")
+                        .WithMany()
                         .HasForeignKey("CustomerId");
 
                     b.HasOne("coreBookStore.Models.Order", "Order")

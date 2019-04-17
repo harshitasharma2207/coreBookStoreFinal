@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_ProfileUserLayout.cshtml";
 }
 
-
 <!-- register -->
 
 <div class="col-md-3 col-md-3" style="float:left">
@@ -14,7 +13,7 @@
         <a class="list-group-item" asp-controller="Customers" asp-action="ResetAddress"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i>&nbsp; Reset Address</a>
         <a class="list-group-item" asp-controller="Customers" asp-action="ResetPassword"><i class="glyphicon glyphicon-wrench" aria-hidden="true"></i>&nbsp; Reset Password</a>
         <a class="list-group-item" asp-controller="Cart" asp-action="Index"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>&nbsp; Cart</a>
-        <a class="list-group-item" asp-controller="Customers" asp-action="OrderHistory"><i class="glyphicon glyphicon-tasks" aria-hidden="true"></i>&nbsp; Order</a>
+        <a class="list-group-item" asp-controller="Customers" asp-action="OrderHistory" asp-route-id="@Model.CustomerId"><i class="glyphicon glyphicon-tasks" aria-hidden="true"></i>&nbsp; Order</a>
     </div>
 </div>
 
@@ -30,7 +29,8 @@
                 <li class="list-group-item"><h3><i class="glyphicon glyphicon-edit" aria-hidden="true"></i>&nbsp;&nbsp;Edit Basic Information</h3></li>
 
             </div>
-            <form asp-controller="Customers" asp-action="Edit">
+            <form asp-controller="Customers" asp-action="Edit" novalidate>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <ul class="list-group list-group-flush">
                     @Html.HiddenFor(model => model.CustomerId)
                     @Html.HiddenFor(model => model.UserName)
@@ -40,9 +40,13 @@
                     @Html.HiddenFor(model => model.ZipCode)
                     @Html.HiddenFor(model => model.ShippingAddress)
                     <li class="list-group-item">First Name :  <input type="text" asp-for="FirstName" class="form-control" /></li>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
                     <li class="list-group-item">Last Name : <input type="text" asp-for="LastName" class="form-control" /></li>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
                     <li class="list-group-item">Email : <input type="text" asp-for="Email" class="form-control" /></li>
+                    <span asp-validation-for="Email" class="text-danger"></span>
                     <li class="list-group-item">Contact : <input type="text" asp-for="Contact" class="form-control" /></li>
+                    <span asp-validation-for="Contact" class="text-danger"></span>
                     <li class="list-group-item">   <center> <input type="submit" value="Edit" class="btn btn-primary" /></li> </center>
                 </ul>
 

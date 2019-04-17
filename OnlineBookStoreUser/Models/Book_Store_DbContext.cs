@@ -15,6 +15,7 @@ namespace OnlineBookStoreUser.Models
         {
         }
 
+        public virtual DbSet<Admins> Admins { get; set; }
         public virtual DbSet<Authors> Authors { get; set; }
         public virtual DbSet<BookCategories> BookCategories { get; set; }
         public virtual DbSet<Books> Books { get; set; }
@@ -36,6 +37,11 @@ namespace OnlineBookStoreUser.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Admins>(entity =>
+            {
+                entity.HasKey(e => e.AdminId);
+            });
+
             modelBuilder.Entity<Authors>(entity =>
             {
                 entity.HasKey(e => e.AuthorId);
@@ -113,9 +119,7 @@ namespace OnlineBookStoreUser.Models
                 entity.HasIndex(e => e.OrderId)
                     .IsUnique();
 
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Payment)
-                    .HasForeignKey(d => d.CustomerId);
+              
 
                 entity.HasOne(d => d.Order)
                     .WithOne(p => p.Payment)
@@ -138,7 +142,7 @@ namespace OnlineBookStoreUser.Models
                     .HasForeignKey(d => d.BookId);
 
                 entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Review)
+                    .WithMany(p => p.Reviews)
                     .HasForeignKey(d => d.CustomerId);
             });
         }

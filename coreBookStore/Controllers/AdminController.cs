@@ -15,44 +15,33 @@ namespace coreBookStore.Controllers
         BookStoreDbContext context = new BookStoreDbContext();
 
         [Route("")]
-            [Route("index")]
-            [Route("~/")]
-            [HttpGet]
-            public IActionResult Index()
-            {
-                return View();
-            }
-
+        [Route("index")]
+        [Route("~/")]
         [HttpGet]
-        public ViewResult Register()
+        public IActionResult Index()
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult Register(Admin ad)
-        {
-            context.Admins.Add(ad);
-            context.SaveChanges();
-
-            return RedirectToAction("Login");
-        }
-
 
         [Route("login")]
         [HttpPost]
-        public IActionResult Login(int id, Admin admin)
+        public IActionResult Login(string username, string password)
         {
-            var adminLogin = context.Admins.Where(x => x.AdminUserName == admin.AdminUserName && x.AdminPassword.Equals(admin.AdminPassword)).SingleOrDefault();
-            if (adminLogin == null)
+
+            var user = context.Admins.Where(x => x.AdminUserName == username).SingleOrDefault();
+            if (username == null)
             {
                 ViewBag.Error = "Invalid Credential";
                 return View("Index");
             }
             else
             {
-                if (adminLogin != null)
+                var userName = user.AdminUserName;
+                var Password = user.AdminPassword;
+
+                if (username != null && password != null && username.Equals(userName) && password.Equals(Password))
                 {
-                    HttpContext.Session.SetString("uname", admin.AdminUserName);
+                    HttpContext.Session.SetString("uname", username);
                     return View("Home");
                 }
                 else
@@ -64,81 +53,22 @@ namespace coreBookStore.Controllers
 
 
         }
-
         [Route("Home")]
 
         public IActionResult Home()
         {
-          
+
             return View();
         }
 
         [Route("logout")]
-            [HttpGet]
-            public IActionResult Logout()
-            {
-                HttpContext.Session.Remove("uname");
-                return RedirectToAction("Index");
-            }
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("uname");
+            return RedirectToAction("Index");
+        }
 
- 
+
     }
 }
-
-
-
-
-
-//[Route("login")]
-//public IActionResult Login()
-//{
-//    var custId = HttpContext.Session.GetString("cId");
-//    if (custId != null)
-//    {
-//        int cId = int.Parse(custId);
-//        return RedirectToAction("CheckOut", "Cart", new { @id = cId });
-//    }
-//    else
-//    {
-//        return View("Login");
-
-//    }
-//}
-//[Route("login")]
-//[HttpPost]
-//public ActionResult Login(int id, Customers cust)
-//{
-
-//    var user = context.Customers.Where(x => x.UserName == cust.UserName && x.NewPassword.Equals(cust.NewPassword)).SingleOrDefault();
-//    if (user == null)
-//    {
-//        ViewBag.Error = "Invalid Credential";
-//        return View("Login");
-//    }
-//    else
-//    {
-//        int custId = user.CustomerId;
-//        ViewBag.custName = cust.UserName;
-
-//        if (user != null)
-//        {
-
-//            HttpContext.Session.SetString("uname", cust.UserName);
-//            HttpContext.Session.SetString("id", user.CustomerId.ToString());
-
-//            HttpContext.Session.SetString("cid", custId.ToString());
-
-//            return RedirectToAction("CheckOut", "Cart", new { @id = custId });
-
-
-//        }
-//        else
-//        {
-//            ViewBag.Error = "Invalid Credential";
-//            return View("Index");
-//        }
-//}
-//    }
-
-
-

@@ -13,7 +13,6 @@
         <tr>
             <th><label for="OrderId">Order Id</label></th>
             <th><label for="OrderDate">Order Date</label></th>
-            <th><label for="OrderAmount">Order Amount</label></th>
             <th><label for="CustomerId">Customer Id</label></th>
             <th><label for="Actions">Actions</label></th>
         </tr>
@@ -22,20 +21,19 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td> @Html.DisplayFor(modelItem => item.OrderId)</td>
-                <td> @Html.DisplayFor(modelItem => item.OrderDate)</td>
-                <td> @Html.DisplayFor(modelItem => item.OrderAmount)</td>
-                    <td> @Html.DisplayFor(modelItem => item.CustomerId)</td>
+        <tr>
+            <td> @Html.DisplayFor(modelItem => item.OrderId)</td>
+            <td> @Html.DisplayFor(modelItem => item.OrderDate)</td>
+            <td> @Html.DisplayFor(modelItem => item.CustomerId)</td>
 
 
-                <td>
+            <td>
 
 
-                    <a asp-controller="Orders" asp-action="OrderBookDetails" asp-route-id="@item.OrderId" class="btn btn-primary">Details</a>
+                <a asp-controller="Orders" asp-action="Details" asp-route-id="@item.CustomerId" class="btn btn-primary">Details</a>
 
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

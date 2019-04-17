@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,14 +23,23 @@ namespace OnlineBookStoreUser.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult Register(Customers cust)
-        {
-            context.Customers.Add(cust);
-            context.SaveChanges();
 
-            return RedirectToAction("Login");
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register([Bind("FirstName,LastName,UserName,Email,OldPassword,NewPassword,Address,ZipCode,Contact")]Customers cust)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Customers.Add(cust);
+                context.SaveChanges();
+
+                return RedirectToAction("Login");
+            }
+            return View(cust);
         }
+
 
         [Route("login")]
         public IActionResult Login()
@@ -43,13 +55,13 @@ namespace OnlineBookStoreUser.Controllers
                 return View("Login");
 
             }
-            }
+        }
         [Route("login")]
         [HttpPost]
-        public ActionResult Login(int id, Customers cust)
+        public ActionResult Login([Bind("UserName", "OldPassword")]int id, Customers cust)
         {
 
-            var user = context.Customers.Where(x => x.UserName == cust.UserName && x.NewPassword.Equals(cust.NewPassword)).SingleOrDefault();
+            var user = context.Customers.Where(x => x.UserName == cust.UserName && x.OldPassword.Equals(cust.OldPassword)).SingleOrDefault();
             if (user == null)
             {
                 ViewBag.Error = "Invalid Credential";
@@ -67,9 +79,10 @@ namespace OnlineBookStoreUser.Controllers
                     HttpContext.Session.SetString("id", user.CustomerId.ToString());
 
                     HttpContext.Session.SetString("cid", custId.ToString());
-                    
-                        return RedirectToAction("CheckOut", "Cart", new { @id = custId });
-                    
+
+
+                    return RedirectToAction("CheckOut", "Cart", new { @id = custId });
+
 
                 }
                 else
@@ -93,6 +106,7 @@ namespace OnlineBookStoreUser.Controllers
 
         public ActionResult Logout()
         {
+            HttpContext.Session.Remove("cid");
             HttpContext.Session.Remove("uname");
             HttpContext.Session.Remove("id");
             return RedirectToAction("Index", "Home");
@@ -116,14 +130,18 @@ namespace OnlineBookStoreUser.Controllers
         }
         [Route("edit")]
         [HttpPost]
-        public ActionResult Edit(int id, Customers a1)
+        public ActionResult Edit([Bind("FirstName,LastName,EmailContact")]int id, Customers a1)
         {
-            int custId = int.Parse(HttpContext.Session.GetString("cid"));
-            Customers cust = context.Customers.Where
-                (x => x.CustomerId == custId).SingleOrDefault();
-            context.Entry(cust).CurrentValues.SetValues(a1);
-            context.SaveChanges();
-            return RedirectToAction("Profile", new { @id = custId });
+            if (ModelState.IsValid)
+            {
+                int custId = int.Parse(HttpContext.Session.GetString("cid"));
+                Customers cust = context.Customers.Where
+                    (x => x.CustomerId == custId).SingleOrDefault();
+                context.Entry(cust).CurrentValues.SetValues(a1);
+                context.SaveChanges();
+                return RedirectToAction("Profile", new { @id = custId });
+            }
+            return View(a1);
         }
 
         [Route("resetpassword")]
@@ -136,14 +154,19 @@ namespace OnlineBookStoreUser.Controllers
         }
         [Route("resetpassword")]
         [HttpPost]
-        public ActionResult ResetPassword(int id, Customers a1)
+        public ActionResult ResetPassword([Bind("OldPassword,NewPassword")]int id, Customers a1)
         {
-            int custId = int.Parse(HttpContext.Session.GetString("cid"));
-            Customers cust = context.Customers.Where
-                (x => x.CustomerId == custId).SingleOrDefault();
-            cust.NewPassword = a1.NewPassword;
-            context.SaveChanges();
-            return RedirectToAction("Profile", new { @id = custId });
+
+            if (ModelState.IsValid)
+            {
+                int custId = int.Parse(HttpContext.Session.GetString("cid"));
+                Customers cust = context.Customers.Where
+                    (x => x.CustomerId == custId).SingleOrDefault();
+                cust.NewPassword = a1.NewPassword;
+                context.SaveChanges();
+                return RedirectToAction("Profile", new { @id = custId });
+            }
+            return View(a1);
         }
 
         [Route("resetaddress")]
@@ -154,16 +177,20 @@ namespace OnlineBookStoreUser.Controllers
             Customers cust = context.Customers.Where(x => x.CustomerId == custId).SingleOrDefault();
             return View(cust);
         }
-        [Route("resetpassword")]
+        [Route("resetaddress")]
         [HttpPost]
-        public ActionResult ResetAddress(int id, Customers a1)
+        public ActionResult ResetAddress([Bind("Address,ZipCode")]int id, Customers a1)
         {
-            int custId = int.Parse(HttpContext.Session.GetString("cid"));
-            Customers cust = context.Customers.Where
-                (x => x.CustomerId == custId).SingleOrDefault();
-            cust.Address = a1.Address;
-            context.SaveChanges();
-            return RedirectToAction("Profile", new { @id = custId });
+            if (ModelState.IsValid)
+            {
+                int custId = int.Parse(HttpContext.Session.GetString("cid"));
+                Customers cust = context.Customers.Where
+                    (x => x.CustomerId == custId).SingleOrDefault();
+                cust.Address = a1.Address;
+                context.SaveChanges();
+                return RedirectToAction("Profile", new { @id = custId });
+            }
+            return View(a1);
         }
 
 
@@ -209,8 +236,12 @@ namespace OnlineBookStoreUser.Controllers
 
         }
 
-       
+
 
     }
 
 }
+
+
+
+
