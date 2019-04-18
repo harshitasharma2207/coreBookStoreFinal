@@ -12,6 +12,6 @@ namespace coreBookStore.Models
         public int BookId { get; set; }
 
         public Book Book { get; set; }
-        public Customer Customer { get; set; }
+        public List<Customer> Customer { get; set; }
     }
 }

@@ -5,6 +5,11 @@ namespace OnlineBookStoreUser.Models
 {
     public partial class Review
     {
+        public Review()
+        {
+            Customers = new HashSet<Customers>();
+        }
+
         public int ReviewId { get; set; }
         public string ReviewSubject { get; set; }
         public string ReviewMessage { get; set; }
@@ -12,6 +17,6 @@ namespace OnlineBookStoreUser.Models
         public int BookId { get; set; }
 
         public Books Book { get; set; }
-        public Customers Customer { get; set; }
+        public ICollection<Customers> Customers { get; set; }
     }
 }

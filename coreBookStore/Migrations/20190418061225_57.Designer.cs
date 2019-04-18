@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using coreBookStore.Models;
 
 namespace coreBookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class BookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190418061225_57")]
+    partial class _57
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,17 +66,21 @@ namespace coreBookStore.Migrations
 
                     b.Property<int>("BookCategoryId");
 
-                    b.Property<string>("BookDescription");
+                    b.Property<string>("BookDescription")
+                        .IsRequired();
 
-                    b.Property<string>("BookImage");
+                    b.Property<string>("BookImage")
+                        .IsRequired();
 
-                    b.Property<string>("BookName");
+                    b.Property<string>("BookName")
+                        .IsRequired();
 
                     b.Property<string>("BookPdf");
 
                     b.Property<float>("BookPrice");
 
-                    b.Property<string>("BookType");
+                    b.Property<string>("BookType")
+                        .IsRequired();
 
                     b.Property<int>("PublicationId");
 
@@ -220,8 +226,6 @@ namespace coreBookStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AdminId");
-
                     b.Property<string>("PublicationDescription")
                         .IsRequired();
 
@@ -232,8 +236,6 @@ namespace coreBookStore.Migrations
                         .IsRequired();
 
                     b.HasKey("PublicationId");
-
-                    b.HasIndex("AdminId");
 
                     b.ToTable("Publications");
                 });
@@ -314,14 +316,6 @@ namespace coreBookStore.Migrations
                     b.HasOne("coreBookStore.Models.Order", "Order")
                         .WithOne("Payment")
                         .HasForeignKey("coreBookStore.Models.Payment", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("coreBookStore.Models.Publication", b =>
-                {
-                    b.HasOne("coreBookStore.Models.Admin", "Admin")
-                        .WithMany()
-                        .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

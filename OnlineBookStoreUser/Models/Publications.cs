@@ -14,7 +14,9 @@ namespace OnlineBookStoreUser.Models
         public string PublicationName { get; set; }
         public string PublicationDescription { get; set; }
         public string PublicationImage { get; set; }
+        public int AdminId { get; set; }
 
+        public Admins Admin { get; set; }
         public ICollection<Books> Books { get; set; }
     }
 }

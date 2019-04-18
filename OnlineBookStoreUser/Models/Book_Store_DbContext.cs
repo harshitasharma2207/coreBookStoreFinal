@@ -45,11 +45,23 @@ namespace OnlineBookStoreUser.Models
             modelBuilder.Entity<Authors>(entity =>
             {
                 entity.HasKey(e => e.AuthorId);
+
+                entity.Property(e => e.AuthorDescription).IsRequired();
+
+                entity.Property(e => e.AuthorImage).IsRequired();
+
+                entity.Property(e => e.AuthorName).IsRequired();
             });
 
             modelBuilder.Entity<BookCategories>(entity =>
             {
                 entity.HasKey(e => e.BookCategoryId);
+
+                entity.Property(e => e.BookCategoryDescription).IsRequired();
+
+                entity.Property(e => e.BookCategoryImage).IsRequired();
+
+                entity.Property(e => e.BookCategoryName).IsRequired();
             });
 
             modelBuilder.Entity<Books>(entity =>
@@ -79,9 +91,15 @@ namespace OnlineBookStoreUser.Models
             {
                 entity.HasKey(e => e.CustomerId);
 
+                entity.HasIndex(e => e.ReviewId);
+
                 entity.HasIndex(e => e.UserName)
                     .IsUnique()
                     .HasFilter("([UserName] IS NOT NULL)");
+
+                entity.HasOne(d => d.Review)
+                    .WithMany(p => p.Customers)
+                    .HasForeignKey(d => d.ReviewId);
             });
 
             modelBuilder.Entity<OrderBooks>(entity =>
@@ -119,7 +137,9 @@ namespace OnlineBookStoreUser.Models
                 entity.HasIndex(e => e.OrderId)
                     .IsUnique();
 
-              
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Payment)
+                    .HasForeignKey(d => d.CustomerId);
 
                 entity.HasOne(d => d.Order)
                     .WithOne(p => p.Payment)
@@ -129,21 +149,27 @@ namespace OnlineBookStoreUser.Models
             modelBuilder.Entity<Publications>(entity =>
             {
                 entity.HasKey(e => e.PublicationId);
+
+                entity.HasIndex(e => e.AdminId);
+
+                entity.Property(e => e.PublicationDescription).IsRequired();
+
+                entity.Property(e => e.PublicationImage).IsRequired();
+
+                entity.Property(e => e.PublicationName).IsRequired();
+
+                entity.HasOne(d => d.Admin)
+                    .WithMany(p => p.Publications)
+                    .HasForeignKey(d => d.AdminId);
             });
 
             modelBuilder.Entity<Review>(entity =>
             {
                 entity.HasIndex(e => e.BookId);
 
-                entity.HasIndex(e => e.CustomerId);
-
                 entity.HasOne(d => d.Book)
                     .WithMany(p => p.Review)
                     .HasForeignKey(d => d.BookId);
-
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Reviews)
-                    .HasForeignKey(d => d.CustomerId);
             });
         }
     }

@@ -50,7 +50,7 @@
                 </span>
             </div>
 
-            <form class="contact100-form validate-form">
+            <form class="contact100-form validate-form" asp-controller="Book" asp-action="Review" method="post">
                 <div class="wrap-input100 validate-input" asp-for="ReviewSubject" data-validate="Subject is required">
                     <label for="">Review Subject:</label>
                     <input asp-for="ReviewSubject" type="text" placeholder="Subject *">
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="container-contact100-form-btn">
-                    <button class="contact100-form-btn" type="submit" asp-controller="Book" asp-action="Review">
+                    <button class="contact100-form-btn" type="submit">
                         <span>
                             Submit
                             <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
@@ -94,8 +94,7 @@
     <!--===============================================================================================-->
     <script src="~/Review/vendor/countdowntime/countdowntime.js"></script>
     <!--===============================================================================================-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-    <script src="~/Review/js/map-custom.js"></script>
+     
     <!--===============================================================================================-->
     <script src="~/Review/js/main.js"></script>
 

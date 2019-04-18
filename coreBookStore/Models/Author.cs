@@ -12,8 +12,11 @@ namespace coreBookStore.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AuthorId { get; set; }
+        [Required]
         public string AuthorName { get; set; }
+        [Required]
         public string AuthorDescription { get; set; }
+        [Required]
         public string AuthorImage { get; set; }
 
         public List<Book> Books { get; set; }

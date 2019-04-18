@@ -22,13 +22,16 @@ namespace coreBookStore.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Author a1)
+        public ActionResult Create([Bind("AuthorName,AuthorDescription,AuthorImage")]Author a1)
         {
+            if (ModelState.IsValid)
+            {
+                context.Authors.Add(a1);
+                context.SaveChanges();
 
-            context.Authors.Add(a1);
-            context.SaveChanges();
-
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            return View(a1);
         }
 
         public ActionResult Details(int id)
@@ -63,13 +66,17 @@ namespace coreBookStore.Controllers
             return View(Authr);
         }
         [HttpPost]
-        public ActionResult Edit(Author a1)
+        public ActionResult Edit([Bind("AuthorName,AuthorDescription,AuthorImage")]Author a1)
         {
-            Author Authr = context.Authors.Where
+            if (ModelState.IsValid)
+            {
+                Author Authr = context.Authors.Where
                 (x => x.AuthorId == a1.AuthorId).SingleOrDefault();
             context.Entry(Authr).CurrentValues.SetValues(a1);
             context.SaveChanges();
             return RedirectToAction("Index");
+            }
+            return View(a1);
         }
     }
 }

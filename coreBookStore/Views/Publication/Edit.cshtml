@@ -12,29 +12,8 @@
 <br />
 
 
-@*<form asp-action="Edit" asp-controller="Publication">
-
-        <label asp-for="PublicationId"></label>
-        <input type="text" asp-for="PublicationId" />
-        <br />
-
-        <label asp-for="PublicationName"></label>
-        <input type="text" asp-for="PublicationName" />
-        <br />
-
-        <label asp-for="PublicationDescription"></label>
-        <input type="text" asp-for="PublicationDescription" />
-        <br />
-
-
-
-        <input type="submit" value="Save" class="btn btn-primary" />
-
-    </form>*@
-
-
 <form asp-action="Edit" asp-controller="Publication">
-
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     @*<div class="form-group">
             <label asp-for="PublicationId"><b>Publication Id</b></label>
             <input type="text" asp-for="PublicationId" class="form-control" placeholder="Enter Publication Id">
@@ -45,15 +24,18 @@
     <div class="form-group">
         <label asp-for="PublicationName"><b>Publication Name</b></label>
         <input type="text" asp-for="PublicationName" class="form-control" placeholder="Enter Publication Name">
+        <span asp-validation-for="PublicationName" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="PublicationDescription"><b>Publication Description</b></label>
         <input type="text" asp-for="PublicationDescription" class="form-control" placeholder="Enter Publication Description">
+        <span asp-validation-for="PublicationDescription" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="PublicationImage"><b>Publication Image</b></label>
         <input type="text" asp-for="PublicationImage" class="form-control" placeholder="Enter Publication Image">
+        <span asp-validation-for="PublicationImage" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>

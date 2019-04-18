@@ -27,10 +27,11 @@ namespace coreBookStore.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-
+           
             var user = context.Admins.Where(x => x.AdminUserName == username).SingleOrDefault();
             if (username == null)
             {
+
                 ViewBag.Error = "Invalid Credential";
                 return View("Index");
             }
@@ -42,6 +43,7 @@ namespace coreBookStore.Controllers
                 if (username != null && password != null && username.Equals(userName) && password.Equals(Password))
                 {
                     HttpContext.Session.SetString("uname", username);
+                    HttpContext.Session.SetString("id", user.AdminId.ToString());
                     return View("Home");
                 }
                 else

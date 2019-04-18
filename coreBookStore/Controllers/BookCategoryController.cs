@@ -21,12 +21,16 @@ namespace coreBookStore.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(BookCategory c1)
+        public ActionResult Create([Bind("BookCategoryName,BookCategoryDescription,BookCategoryImage")]BookCategory c1)
         {
-            context.BookCategories.Add(c1);
-            context.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                context.BookCategories.Add(c1);
+                context.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            return View(c1);
         }
         [HttpGet]
         public ActionResult Delete(int id)
@@ -52,12 +56,16 @@ namespace coreBookStore.Controllers
             return View(caty);
         }
         [HttpPost]
-        public ActionResult Edit(BookCategory c1)
+        public ActionResult Edit([Bind("BookCategoryName,BookCategoryDescription,BookCategoryImage")]BookCategory c1)
         {
-            BookCategory caty = context.BookCategories.Where(x => x.BookCategoryId == c1.BookCategoryId).SingleOrDefault();
+            if (ModelState.IsValid)
+            {
+                BookCategory caty = context.BookCategories.Where(x => x.BookCategoryId == c1.BookCategoryId).SingleOrDefault();
             context.Entry(caty).CurrentValues.SetValues(c1);
             context.SaveChanges();
             return RedirectToAction("Index");
+        }
+         return View(c1);
         }
         public ActionResult Details(int id)
         {

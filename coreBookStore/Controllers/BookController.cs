@@ -29,10 +29,13 @@ namespace coreBookStore.Controllers
         [HttpPost]
         public ActionResult Create(Book b1)
         {
-            context.Books.Add(b1);
-            context.SaveChanges();
+           
+                context.Books.Add(b1);
+                context.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            
+        
         }
         [HttpGet]
         public ActionResult Delete(int id)
@@ -63,11 +66,13 @@ namespace coreBookStore.Controllers
         [HttpPost]
         public ActionResult Edit(Book b1)
         {
-            Book bk = context.Books.Where
+           
+                Book bk = context.Books.Where
                 (x => x.BookId == b1.BookId).SingleOrDefault();
             context.Entry(bk).CurrentValues.SetValues(b1);
             context.SaveChanges();
             return RedirectToAction("Index");
+          
         }
         public ActionResult Details(int id)
         {
