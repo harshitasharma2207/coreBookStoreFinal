@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace coreBookStore.Migrations
 {
-    public partial class _1 : Migration
+    public partial class _101 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,9 +28,9 @@ namespace coreBookStore.Migrations
                 {
                     AuthorId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AuthorName = table.Column<string>(nullable: true),
-                    AuthorDescription = table.Column<string>(nullable: true),
-                    AuthorImage = table.Column<string>(nullable: true)
+                    AuthorName = table.Column<string>(nullable: false),
+                    AuthorDescription = table.Column<string>(nullable: false),
+                    AuthorImage = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,36 +43,13 @@ namespace coreBookStore.Migrations
                 {
                     BookCategoryId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BookCategoryName = table.Column<string>(nullable: true),
-                    BookCategoryDescription = table.Column<string>(nullable: true),
-                    BookCategoryImage = table.Column<string>(nullable: true)
+                    BookCategoryName = table.Column<string>(nullable: false),
+                    BookCategoryDescription = table.Column<string>(nullable: false),
+                    BookCategoryImage = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookCategories", x => x.BookCategoryId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    CustomerId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    UserName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    OldPassword = table.Column<string>(nullable: true),
-                    NewPassword = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<long>(nullable: false),
-                    Contact = table.Column<long>(nullable: false),
-                    BillingAddress = table.Column<bool>(nullable: false),
-                    ShippingAddress = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,34 +58,13 @@ namespace coreBookStore.Migrations
                 {
                     PublicationId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    PublicationName = table.Column<string>(nullable: true),
-                    PublicationDescription = table.Column<string>(nullable: true),
-                    PublicationImage = table.Column<string>(nullable: true)
+                    PublicationName = table.Column<string>(nullable: false),
+                    PublicationDescription = table.Column<string>(nullable: false),
+                    PublicationImage = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Publications", x => x.PublicationId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    OrderId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OrderDate = table.Column<DateTime>(nullable: false),
-                    OrderAmount = table.Column<float>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.OrderId);
-                    table.ForeignKey(
-                        name: "FK_Orders_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -151,33 +107,75 @@ namespace coreBookStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Payment",
+                name: "Review",
                 columns: table => new
                 {
-                    PaymentId = table.Column<int>(nullable: false)
+                    ReviewId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    StripePaymentId = table.Column<string>(nullable: true),
-                    PaymentAmount = table.Column<float>(nullable: false),
-                    DateOfPayment = table.Column<DateTime>(nullable: false),
-                    PaymentDescription = table.Column<string>(nullable: true),
-                    CardLastDigit = table.Column<long>(nullable: false),
-                    OrderId = table.Column<int>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: true)
+                    ReviewSubject = table.Column<string>(nullable: true),
+                    ReviewMessage = table.Column<string>(nullable: true),
+                    CustomerId = table.Column<int>(nullable: false),
+                    BookId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Payment", x => x.PaymentId);
+                    table.PrimaryKey("PK_Review", x => x.ReviewId);
                     table.ForeignKey(
-                        name: "FK_Payment_Customers_CustomerId",
+                        name: "FK_Review_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    CustomerId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    OldPassword = table.Column<string>(nullable: true),
+                    NewPassword = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    ZipCode = table.Column<long>(nullable: false),
+                    Contact = table.Column<long>(nullable: false),
+                    BillingAddress = table.Column<bool>(nullable: false),
+                    ShippingAddress = table.Column<string>(nullable: true),
+                    ReviewId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
+                    table.ForeignKey(
+                        name: "FK_Customers_Review_ReviewId",
+                        column: x => x.ReviewId,
+                        principalTable: "Review",
+                        principalColumn: "ReviewId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    OrderDate = table.Column<DateTime>(nullable: false),
+                    OrderAmount = table.Column<float>(nullable: false),
+                    CustomerId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.ForeignKey(
+                        name: "FK_Orders_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Payment_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "OrderId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -208,30 +206,33 @@ namespace coreBookStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Review",
+                name: "Payment",
                 columns: table => new
                 {
-                    ReviewId = table.Column<int>(nullable: false)
+                    PaymentId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ReviewSubject = table.Column<string>(nullable: true),
-                    ReviewMessage = table.Column<string>(nullable: true),
-                    CustomerId = table.Column<int>(nullable: false),
-                    BookId = table.Column<int>(nullable: false)
+                    StripePaymentId = table.Column<string>(nullable: true),
+                    PaymentAmount = table.Column<float>(nullable: false),
+                    DateOfPayment = table.Column<DateTime>(nullable: false),
+                    PaymentDescription = table.Column<string>(nullable: true),
+                    CardLastDigit = table.Column<long>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false),
+                    CustomerId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Review", x => x.ReviewId);
+                    table.PrimaryKey("PK_Payment", x => x.PaymentId);
                     table.ForeignKey(
-                        name: "FK_Review_Books_BookId",
-                        column: x => x.BookId,
-                        principalTable: "Books",
-                        principalColumn: "BookId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Review_Customers_CustomerId",
+                        name: "FK_Payment_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Payment_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "OrderId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -249,6 +250,11 @@ namespace coreBookStore.Migrations
                 name: "IX_Books_PublicationId",
                 table: "Books",
                 column: "PublicationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_ReviewId",
+                table: "Customers",
+                column: "ReviewId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_UserName",
@@ -277,11 +283,6 @@ namespace coreBookStore.Migrations
                 name: "IX_Review_BookId",
                 table: "Review",
                 column: "BookId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Review_CustomerId",
-                table: "Review",
-                column: "CustomerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -296,16 +297,16 @@ namespace coreBookStore.Migrations
                 name: "Payment");
 
             migrationBuilder.DropTable(
-                name: "Review");
-
-            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Books");
+                name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Review");
+
+            migrationBuilder.DropTable(
+                name: "Books");
 
             migrationBuilder.DropTable(
                 name: "Authors");

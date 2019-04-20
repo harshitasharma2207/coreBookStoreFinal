@@ -93,17 +93,17 @@
                         @Html.DisplayFor(model => model.BookDescription)
                     </p>
                 </div>
-              
+
                 <div class="bookType">
                     <h5><i>Book Type</i></h5>
                     <p>
                         @Html.DisplayFor(model => model.BookType)
                     </p>
                 </div>
-                <br/>
+                <br />
                 <div class="occasion-cart">
                     <a asp-controller="Cart" asp-action="Buy" asp-route-id="@Model.BookId" id="demo" onclick="myFunction()" class="btn btn-sm btn-outline-secondary">Add To Cart</a>
-                    
+
 
                     <script>
                         function myFunction() {
@@ -111,9 +111,9 @@
                         }
                     </script>
                 </div>
-                <br/>
+                <br />
                 <div class="occasion-cart">
-                    <a class="btn btn-sm btn-outline-primary" asp-controller="Book" asp-action="Review">Write Review</a>
+                    <a class="btn btn-sm btn-outline-primary" asp-controller="Book" asp-action="Review" asp-route-id="@Model.BookId">Write Review</a>
                 </div>
                 <div class="social">
                     <div class="social-left">
@@ -135,7 +135,7 @@
                 <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                     <ul id="myTab" class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Description</a></li>
-                        <li role="presentation"><a href="#profile"role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Reviews</a></li>
+                        <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Reviews</a></li>
                         <li role="presentation" class="dropdown">
                             <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">Information <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
@@ -155,21 +155,21 @@
                             <div class="bootstrap-tab-text-grids">
                                 @foreach (var item in ViewBag.reviews)
                                 {
-                                    <div class="bootstrap-tab-text-grid">
-                                        <div class="bootstrap-tab-text-grid-left">
-                                            <img src="https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder.jpg" height="50" width="100" alt=" " class="img-responsive" />
-                                        </div>
-                                        <div class="bootstrap-tab-text-grid-right">
-                                            <ul>
-                                                <li><a href="#">@item.ReviewSubject</a></li>
-                                                <li><a href="#"><span class="glyphicon glyphicon-share" aria-hidden="true"></span>Reply</a></li>
-                                            </ul>
-                                            <p>
-                                                @item.ReviewMessage
-                                            </p>
-                                        </div>
-                                        <div class="clearfix"> </div>
+                                <div class="bootstrap-tab-text-grid">
+                                    <div class="bootstrap-tab-text-grid-left">
+                                        <img src="https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder.jpg" height="50" width="100" alt=" " class="img-responsive" />
                                     </div>
+                                    <div class="bootstrap-tab-text-grid-right">
+                                        <ul>
+                                            <li><a href="#">@item.ReviewSubject</a></li>
+                                            <li><a href="#"><span class="glyphicon glyphicon-share" aria-hidden="true"></span>Reply</a></li>
+                                        </ul>
+                                        <p>
+                                            @item.ReviewMessage
+                                        </p>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                </div>
 
                                 }
 
@@ -177,7 +177,7 @@
                             </div>
                         </div>
 
-                                        
+
 
 
                         <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="dropdown1" aria-labelledby="dropdown1-tab">

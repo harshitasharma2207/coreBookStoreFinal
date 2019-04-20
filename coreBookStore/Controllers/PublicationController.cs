@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using coreBookStore.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace coreBookStore.Controllers
@@ -22,18 +21,12 @@ namespace coreBookStore.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create([Bind("PublicationName,PublicationDescription,PublicationImage")]Publication p1)
+        public ActionResult Create(Publication p1)
         {
-            if (ModelState.IsValid)
-            {
-                HttpContext.Session.GetString("uname");
-                p1.AdminId = Convert.ToInt32(HttpContext.Session.GetString("id"));
-                context.Publications.Add(p1);
-                context.SaveChanges();
+            context.Publications.Add(p1);
+            context.SaveChanges();
 
-                return RedirectToAction("Index");
-            }
-            return View(p1);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Details(int id)
@@ -66,18 +59,13 @@ namespace coreBookStore.Controllers
             return View(Pub);
         }
         [HttpPost]
-        public ActionResult Edit([Bind("PublicationName,PublicationDescription,PublicationImage")]Publication p1)
+        public ActionResult Edit(Publication p1)
         {
-            if (ModelState.IsValid)
-            {
-                Publication Pub = context.Publications.Where
+            Publication Pub = context.Publications.Where
                 (x => x.PublicationId == p1.PublicationId).SingleOrDefault();
-
-                context.Entry(Pub).CurrentValues.SetValues(p1);
-                context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(p1);
+            context.Entry(Pub).CurrentValues.SetValues(p1);
+            context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

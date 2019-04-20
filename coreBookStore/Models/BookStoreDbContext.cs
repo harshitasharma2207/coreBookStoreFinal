@@ -25,10 +25,10 @@ namespace coreBookStore.Models
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-             modelBuilder
-                .Entity<Customer>()
-                .HasIndex(u => u.UserName)
-                .IsUnique();
+            modelBuilder
+               .Entity<Customer>()
+               .HasIndex(u => u.UserName)
+               .IsUnique();
 
 
             modelBuilder.Entity<OrderBook>

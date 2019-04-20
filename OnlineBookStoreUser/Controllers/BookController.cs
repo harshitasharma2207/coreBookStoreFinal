@@ -13,35 +13,37 @@ namespace OnlineBookStoreUser.Controllers
     {
         Book_Store_DbContext context = new Book_Store_DbContext();
 
-
+        [Route("details/{id}")]
         public ActionResult Details(int id)
         {
-            HttpContext.Session.SetString("bookId", id.ToString());
+
+
             Books bk = context.Books.Where(x => x.BookId == id).SingleOrDefault();
             context.SaveChanges();
-            ViewBag.reviews = context.Review.ToList();
+            ViewBag.reviews = context.Review.Where(x => x.BookId == id).ToList();
             return View(bk);
         }
 
+
         [HttpGet]
-        public ViewResult Review()
+        public ViewResult Review(int id)
         {
+            HttpContext.Session.SetString("bookId", id.ToString());
             return View();
         }
+
         [HttpPost]
         public ActionResult Review(Review re)
         {
-            if(HttpContext.Session.GetString("cid") != null || HttpContext.Session.GetString("bookId") != null)
+            if (HttpContext.Session.GetString("cid") != null || HttpContext.Session.GetString("bookId") != null)
             {
                 re.CustomerId = Convert.ToInt32(HttpContext.Session.GetString("cid"));
                 re.BookId = Convert.ToInt32(HttpContext.Session.GetString("bookId"));
             }
             context.Review.Add(re);
             context.SaveChanges();
-           
-            return RedirectToAction("Details","Book", new { @id = re.BookId });
-        }
 
-      
+            return RedirectToAction("Details", "Book", new { @id = re.BookId });
+        }
     }
 }

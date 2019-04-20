@@ -76,6 +76,7 @@ namespace coreBookStore.Controllers
         }
         public ActionResult Details(int id)
         {
+            
             Book bk = context.Books.Where(x => x.BookId == id).SingleOrDefault();
             context.SaveChanges();
             return View(bk);

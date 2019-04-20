@@ -10,8 +10,8 @@ using coreBookStore.Models;
 namespace coreBookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20190418064622_12")]
-    partial class _12
+    [Migration("20190420073039_101")]
+    partial class _101
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -222,8 +222,6 @@ namespace coreBookStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AdminId");
-
                     b.Property<string>("PublicationDescription")
                         .IsRequired();
 
@@ -234,8 +232,6 @@ namespace coreBookStore.Migrations
                         .IsRequired();
 
                     b.HasKey("PublicationId");
-
-                    b.HasIndex("AdminId");
 
                     b.ToTable("Publications");
                 });
@@ -316,14 +312,6 @@ namespace coreBookStore.Migrations
                     b.HasOne("coreBookStore.Models.Order", "Order")
                         .WithOne("Payment")
                         .HasForeignKey("coreBookStore.Models.Payment", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("coreBookStore.Models.Publication", b =>
-                {
-                    b.HasOne("coreBookStore.Models.Admin", "Admin")
-                        .WithMany()
-                        .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -150,17 +150,11 @@ namespace OnlineBookStoreUser.Models
             {
                 entity.HasKey(e => e.PublicationId);
 
-                entity.HasIndex(e => e.AdminId);
-
                 entity.Property(e => e.PublicationDescription).IsRequired();
 
                 entity.Property(e => e.PublicationImage).IsRequired();
 
                 entity.Property(e => e.PublicationName).IsRequired();
-
-                entity.HasOne(d => d.Admin)
-                    .WithMany(p => p.Publications)
-                    .HasForeignKey(d => d.AdminId);
             });
 
             modelBuilder.Entity<Review>(entity =>

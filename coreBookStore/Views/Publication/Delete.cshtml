@@ -35,7 +35,7 @@
         <br />
         <p class="card-text">@Html.DisplayFor(model => model.PublicationDescription)</p>
         <br />
-        <a asp-controller="Publication" asp-action="Index" class="btn btn-primary">Back To List</a>
+        @*<a asp-controller="Publication" asp-action="Index" class="btn btn-primary">Back To List</a>*@
     </div>
 </div>
 @using (Html.BeginForm("Delete", "Publication", FormMethod.Post))

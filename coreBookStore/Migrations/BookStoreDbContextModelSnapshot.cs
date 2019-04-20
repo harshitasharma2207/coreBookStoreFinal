@@ -220,8 +220,6 @@ namespace coreBookStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AdminId");
-
                     b.Property<string>("PublicationDescription")
                         .IsRequired();
 
@@ -232,8 +230,6 @@ namespace coreBookStore.Migrations
                         .IsRequired();
 
                     b.HasKey("PublicationId");
-
-                    b.HasIndex("AdminId");
 
                     b.ToTable("Publications");
                 });
@@ -314,14 +310,6 @@ namespace coreBookStore.Migrations
                     b.HasOne("coreBookStore.Models.Order", "Order")
                         .WithOne("Payment")
                         .HasForeignKey("coreBookStore.Models.Payment", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("coreBookStore.Models.Publication", b =>
-                {
-                    b.HasOne("coreBookStore.Models.Admin", "Admin")
-                        .WithMany()
-                        .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
