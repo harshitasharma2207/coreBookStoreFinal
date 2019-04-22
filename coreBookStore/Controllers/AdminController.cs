@@ -37,10 +37,9 @@ namespace coreBookStore.Controllers
             }
             else
             {
-                var userName = user.AdminUserName;
-                var Password = user.AdminPassword;
+             
 
-                if (username != null && password != null && username.Equals(userName) && password.Equals(Password))
+                if (username != null && password != null && username.Equals(user.AdminUserName) && password.Equals(user.AdminPassword))
                 {
                     HttpContext.Session.SetString("uname", username);
                     HttpContext.Session.SetString("id", user.AdminId.ToString());
